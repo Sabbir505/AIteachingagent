@@ -10,9 +10,10 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        body: ['Inter', 'sans-serif'],
-        headline: ['Inter', 'sans-serif'],
+        body: ['PT Sans', 'sans-serif'],
+        headline: ['PT Sans', 'sans-serif'],
         code: ['monospace'],
+        dyslexic: ['PT Sans', 'sans-serif'], // Placeholder: Replace with 'OpenDyslexic' if available
       },
       colors: {
         background: 'hsl(var(--background))',
