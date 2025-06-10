@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useAuth } from "@/hooks/useAuth";
@@ -86,15 +87,13 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {(quickLinks[user.role] || []).map((link) => (
-            <Link href={link.href} key={link.href} legacyBehavior>
-              <a className="block p-0">
-                <Card className="hover:shadow-lg transition-shadow h-full">
-                  <CardContent className="p-6 flex flex-col items-center text-center justify-center h-full">
-                    <link.icon className="h-10 w-10 text-primary mb-3" />
-                    <p className="font-semibold text-md">{link.name}</p>
-                  </CardContent>
-                </Card>
-              </a>
+            <Link href={link.href} key={link.href} className="block p-0">
+              <Card className="hover:shadow-lg transition-shadow h-full">
+                <CardContent className="p-6 flex flex-col items-center text-center justify-center h-full">
+                  <link.icon className="h-10 w-10 text-primary mb-3" />
+                  <p className="font-semibold text-md">{link.name}</p>
+                </CardContent>
+              </Card>
             </Link>
           ))}
         </CardContent>
