@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useState } from "react";
@@ -12,6 +13,7 @@ import { Label } from "@/components/ui/label";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Wand2, AlertTriangle, FileQuestion } from "lucide-react";
+import { cn } from "@/lib/utils";
 
 const quizGeneratorSchema = z.object({
   lessonPlan: z.string().min(50, "Lesson plan text must be at least 50 characters long."),
