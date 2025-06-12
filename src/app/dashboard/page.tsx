@@ -76,7 +76,7 @@ export default function DashboardPage() {
             width={1200} 
             height={400} 
             className="rounded-md object-cover"
-            data-ai-hint="learning education" 
+            data-ai-hint="progress analytics" 
           />
         </CardContent>
       </Card>
@@ -87,8 +87,8 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           {(quickLinks[user.role] || []).map((link) => (
-            <Link href={link.href} key={link.href} className="block p-0">
-              <Card className="hover:shadow-lg transition-shadow h-full">
+            <Link href={link.href} key={link.href} className="block p-0 hover:shadow-lg transition-shadow rounded-lg">
+              <Card className="h-full">
                 <CardContent className="p-6 flex flex-col items-center text-center justify-center h-full">
                   <link.icon className="h-10 w-10 text-primary mb-3" />
                   <p className="font-semibold text-md">{link.name}</p>
@@ -129,3 +129,4 @@ export default function DashboardPage() {
     </div>
   );
 }
+
