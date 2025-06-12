@@ -71,12 +71,12 @@ export default function DashboardPage() {
         </CardHeader>
         <CardContent>
           <Image 
-            src="https://placehold.co/1200x400.png" 
-            alt="Dashboard banner" 
+            src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=1200&auto=format&fit=crop"
+            alt="Dashboard banner showing educational setting" 
             width={1200} 
             height={400} 
             className="rounded-md object-cover"
-            data-ai-hint="progress analytics" 
+            priority 
           />
         </CardContent>
       </Card>
@@ -129,4 +129,3 @@ export default function DashboardPage() {
     </div>
   );
 }
-
