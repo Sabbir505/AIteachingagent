@@ -18,6 +18,7 @@ import {
   Cpu,
   ListChecks,
   Edit3,
+  Presentation, // Added Presentation icon
 } from "lucide-react";
 import {
   SidebarMenu,
@@ -55,6 +56,7 @@ const navItems: NavItem[] = [
       { title: "Create Assignment", href: "/dashboard/teacher/assignments/create", icon: Edit3, roles: ["teacher"] },
     ]
   },
+  { title: "Presentation Outline", href: "/dashboard/teacher/presentations/create", icon: Presentation, roles: ["teacher"] },
   { title: "Grading", href: "/dashboard/teacher/grading", icon: ShieldCheck, roles: ["teacher"] },
   { title: "Analytics", href: "/dashboard/teacher/analytics", icon: BarChart3, roles: ["teacher"] },
   // Student Specific
