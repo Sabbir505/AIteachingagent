@@ -1,6 +1,12 @@
-import QuizGeneratorForm from "@/components/teacher/QuizGeneratorForm";
+"use client";
+import dynamic from "next/dynamic";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { ListPlus } from "lucide-react";
+import { ListPlus, Cpu } from "lucide-react";
+
+const QuizGeneratorForm = dynamic(() => import("@/components/teacher/QuizGeneratorForm"), {
+  loading: () => <div className="flex h-64 items-center justify-center"><Cpu className="h-12 w-12 animate-spin text-primary" /></div>,
+  ssr: false
+});
 
 export default function CreateAssignmentPage() {
   return (

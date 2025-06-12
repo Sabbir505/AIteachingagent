@@ -1,6 +1,12 @@
-import LessonGeneratorForm from "@/components/teacher/LessonGeneratorForm";
+"use client";
+import dynamic from "next/dynamic";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { FilePlus2 } from "lucide-react";
+import { FilePlus2, Cpu } from "lucide-react";
+
+const LessonGeneratorForm = dynamic(() => import("@/components/teacher/LessonGeneratorForm"), {
+  loading: () => <div className="flex h-64 items-center justify-center"><Cpu className="h-12 w-12 animate-spin text-primary" /></div>,
+  ssr: false // Since the form itself is interactive and uses client-side state/hooks
+});
 
 export default function CreateLessonPage() {
   return (

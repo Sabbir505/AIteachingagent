@@ -1,9 +1,15 @@
-import AssignmentSubmitForm from "@/components/student/AssignmentSubmitForm";
+"use client";
+import dynamic from "next/dynamic";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
-import { ArrowLeft, Info } from "lucide-react";
+import { ArrowLeft, Info, Cpu } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import Image from "next/image";
+
+const AssignmentSubmitForm = dynamic(() => import("@/components/student/AssignmentSubmitForm"), {
+  loading: () => <div className="flex h-64 items-center justify-center"><Cpu className="h-12 w-12 animate-spin text-primary" /></div>,
+  ssr: false
+});
 
 interface StudentAssignmentPageProps {
   params: {

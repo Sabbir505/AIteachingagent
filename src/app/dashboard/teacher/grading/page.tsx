@@ -1,6 +1,12 @@
-import EssayGraderForm from "@/components/teacher/EssayGraderForm";
+"use client";
+import dynamic from "next/dynamic";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { ShieldCheck } from "lucide-react";
+import { ShieldCheck, Cpu } from "lucide-react";
+
+const EssayGraderForm = dynamic(() => import("@/components/teacher/EssayGraderForm"), {
+  loading: () => <div className="flex h-64 items-center justify-center"><Cpu className="h-12 w-12 animate-spin text-primary" /></div>,
+  ssr: false
+});
 
 export default function TeacherGradingPage() {
   return (
