@@ -3,7 +3,8 @@
 import { useState } from "react";
 import { useForm, type SubmitHandler, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { generatePresentationOutline, type GeneratePresentationOutlineInput, type GeneratePresentationOutlineOutput, GeneratePresentationOutlineInputSchema } from "@/ai/flows/generate-presentation-outline";
+import * as z from "zod";
+import { generatePresentationOutline, type GeneratePresentationOutlineInput, type GeneratePresentationOutlineOutput } from "@/ai/flows/generate-presentation-outline";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -11,6 +12,18 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Wand2, AlertTriangle, Presentation, ListChecks, StickyNote } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+
+// Define the schema locally for client-side validation
+const GeneratePresentationOutlineInputSchema = z.object({
+  topic: z.string().min(1, "Topic is required.").describe('The main topic of the presentation.'),
+  gradeLevel: z.string().optional().describe('The target grade level for the presentation (e.g., "Grade 5", "High School Physics").'),
+  numSlides: z
+    .number()
+    .min(3, "Number of slides must be at least 3.")
+    .max(15, "Number of slides cannot exceed 15.")
+    .default(5)
+    .describe('The desired number of content slides in the presentation (excluding title and thank you/Q&A slide).'),
+});
 
 type PresentationGeneratorFormData = GeneratePresentationOutlineInput;
 
@@ -30,6 +43,8 @@ export default function PresentationGeneratorForm() {
     resolver: zodResolver(GeneratePresentationOutlineInputSchema),
     defaultValues: {
       numSlides: 5, // Default number of slides
+      topic: "",
+      gradeLevel: "",
     },
   });
 

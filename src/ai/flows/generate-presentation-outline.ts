@@ -17,7 +17,7 @@ const SlideSchema = z.object({
   notes: z.string().optional().describe('Optional speaker notes for the slide.'),
 });
 
-export const GeneratePresentationOutlineInputSchema = z.object({
+const GeneratePresentationOutlineInputSchema = z.object({
   topic: z.string().describe('The main topic of the presentation.'),
   gradeLevel: z.string().optional().describe('The target grade level for the presentation (e.g., "Grade 5", "High School Physics").'),
   numSlides: z
@@ -29,7 +29,7 @@ export const GeneratePresentationOutlineInputSchema = z.object({
 });
 export type GeneratePresentationOutlineInput = z.infer<typeof GeneratePresentationOutlineInputSchema>;
 
-export const GeneratePresentationOutlineOutputSchema = z.object({
+const GeneratePresentationOutlineOutputSchema = z.object({
   presentationTitle: z.string().describe('The overall title for the presentation.'),
   slides: z.array(SlideSchema).describe('An array of slide objects, each containing a title and content points.'),
 });
