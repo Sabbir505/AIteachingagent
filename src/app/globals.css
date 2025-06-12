@@ -1,94 +1,96 @@
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
   :root {
-    --background: 207 67% 95%; /* #EBF4FA Light Desaturated Blue */
-    --foreground: 0 0% 20%; /* #333333 Dark Grey */
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 197 71% 73%; /* #87CEEB Soft Sky Blue */
-    --primary-foreground: 0 0% 10%; /* Darker text for soft blue */
-    --secondary: 278 38% 88%; /* Lighter Lavender for secondary elements */
-    --secondary-foreground: 0 0% 10%;
-    --muted: 207 30% 90%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 278 38% 79%; /* #D0B4DE Muted Lavender */
-    --accent-foreground: 0 0% 10%; /* Darker text for lavender */
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 207 20% 82%; /* Slightly darker than background for borders */
-    --input: 207 20% 88%;
-    --ring: 197 71% 65%; /* Slightly darker primary for ring */
-    --chart-1: 197 71% 73%;
-    --chart-2: 278 38% 79%;
-    --chart-3: 197 50% 60%;
-    --chart-4: 278 50% 70%;
-    --chart-5: 197 60% 50%;
+    --background: 210 60% 98%; /* Very Light Cool Blue-White */
+    --foreground: 210 20% 25%; /* Dark Desaturated Blue-Grey */
+    --card: 0 0% 100%; /* White */
+    --card-foreground: 210 20% 20%; /* Slightly darker for card text */
+    --popover: 0 0% 100%; /* White */
+    --popover-foreground: 210 20% 20%;
+    --primary: 205 70% 55%; /* Professional Medium Blue */
+    --primary-foreground: 0 0% 100%; /* White */
+    --secondary: 210 40% 90%; /* Light Soft Blue-Grey */
+    --secondary-foreground: 210 20% 35%; /* Muted Blue-Grey Text */
+    --muted: 210 30% 88%; /* Lighter Blue-Grey */
+    --muted-foreground: 210 15% 50%; /* Medium Grey Text */
+    --accent: 180 60% 45%; /* Sophisticated Teal */
+    --accent-foreground: 0 0% 100%; /* White */
+    --destructive: 0 70% 50%; /* A slightly softer red for destructive actions */
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 20% 85%; /* Light Grey-Blue Border */
+    --input: 210 30% 94%; /* Very Light Grey-Blue Input Background */
+    --ring: 205 70% 50%; /* Slightly Darker Primary for Ring */
+    --chart-1: 205 70% 55%; /* Primary Blue */
+    --chart-2: 180 60% 45%; /* Accent Teal */
+    --chart-3: 205 50% 65%; /* Lighter Primary Blue */
+    --chart-4: 180 40% 55%; /* Muted Accent Teal */
+    --chart-5: 210 30% 70%; /* Muted Grey-Blue */
     --radius: 0.5rem;
 
-    /* Sidebar specific colors, can be adjusted or inherit from above */
-    --sidebar-background: 207 50% 92%; /* Slightly different from main background */
-    --sidebar-foreground: 0 0% 20%;
-    --sidebar-primary: 197 71% 73%;
-    --sidebar-primary-foreground: 0 0% 10%;
-    --sidebar-accent: 278 38% 79%;
-    --sidebar-accent-foreground: 0 0% 10%;
-    --sidebar-border: 207 20% 82%;
-    --sidebar-ring: 197 71% 65%;
+    /* Sidebar specific colors - aligned with the new theme */
+    --sidebar-background: 210 50% 95%; /* Slightly different, clean background for sidebar */
+    --sidebar-foreground: 210 20% 25%; /* Consistent with main foreground */
+    --sidebar-primary: 205 70% 55%; /* Consistent with main primary */
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 180 60% 45%; /* Consistent with main accent */
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 210 20% 88%; /* Slightly lighter border for sidebar internal elements */
+    --sidebar-ring: 205 70% 50%;
   }
 
   .dark {
-    --background: 210 20% 12%;
-    --foreground: 210 30% 90%;
-    --card: 210 20% 18%;
-    --card-foreground: 210 30% 90%;
-    --popover: 210 20% 18%;
-    --popover-foreground: 210 30% 90%;
-    --primary: 197 71% 65%;
-    --primary-foreground: 210 30% 95%;
-    --secondary: 278 38% 25%;
-    --secondary-foreground: 210 30% 90%;
-    --muted: 210 15% 25%;
-    --muted-foreground: 210 20% 65%;
-    --accent: 278 38% 70%;
-    --accent-foreground: 210 30% 95%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 210 15% 30%;
-    --input: 210 15% 30%;
-    --ring: 197 71% 55%;
+    --background: 210 20% 10%; /* Very Dark Desaturated Blue */
+    --foreground: 210 40% 95%; /* Very Light Grey-Blue Text */
+    --card: 210 20% 15%; /* Dark Blue-Grey Card */
+    --card-foreground: 210 40% 90%; /* Light text for dark cards */
+    --popover: 210 20% 15%;
+    --popover-foreground: 210 40% 90%;
+    --primary: 205 70% 60%; /* Brighter Blue for Dark Mode Primary */
+    --primary-foreground: 210 10% 15%; /* Dark text for dark primary buttons */
+    --secondary: 210 25% 25%; /* Dark Muted Blue-Grey */
+    --secondary-foreground: 210 35% 80%;
+    --muted: 210 20% 20%; /* Darker Muted */
+    --muted-foreground: 210 25% 65%;
+    --accent: 180 60% 55%; /* Brighter Teal for Dark Mode Accent */
+    --accent-foreground: 210 10% 10%;
+    --destructive: 0 60% 45%;
+    --destructive-foreground: 0 0% 100%;
+    --border: 210 15% 25%; /* Dark Border */
+    --input: 210 15% 22%; /* Dark Input Background */
+    --ring: 205 70% 55%; /* Dark Mode Ring */
     
-    --sidebar-background: 210 20% 15%;
-    --sidebar-foreground: 210 30% 90%;
-    --sidebar-primary: 197 71% 65%;
-    --sidebar-primary-foreground: 210 30% 95%;
-    --sidebar-accent: 278 38% 70%;
-    --sidebar-accent-foreground: 210 30% 95%;
-    --sidebar-border: 210 15% 30%;
-    --sidebar-ring: 197 71% 55%;
+    --sidebar-background: 210 20% 12%; /* Slightly darker sidebar for depth */
+    --sidebar-foreground: 210 40% 95%;
+    --sidebar-primary: 205 70% 60%;
+    --sidebar-primary-foreground: 210 10% 15%;
+    --sidebar-accent: 180 60% 55%;
+    --sidebar-accent-foreground: 210 10% 10%;
+    --sidebar-border: 210 15% 20%;
+    --sidebar-ring: 205 70% 55%;
   }
 
   .high-contrast {
+    /* High contrast theme remains focused on black/white for max accessibility */
     --background: 0 0% 0%; /* Black */
     --foreground: 0 0% 100%; /* White */
     --card: 0 0% 5%;
     --card-foreground: 0 0% 100%;
     --popover: 0 0% 5%;
     --popover-foreground: 0 0% 100%;
-    --primary: 0 0% 100%;
-    --primary-foreground: 0 0% 0%;
+    --primary: 0 0% 100%; /* White primary elements */
+    --primary-foreground: 0 0% 0%; /* Black text on primary */
     --secondary: 0 0% 15%;
     --secondary-foreground: 0 0% 100%;
     --muted: 0 0% 10%;
     --muted-foreground: 0 0% 70%;
-    --accent: 0 0% 100%;
-    --accent-foreground: 0 0% 0%;
-    --destructive: 0 100% 50%;
-    --destructive-foreground: 0 0% 0%;
+    --accent: 60 100% 50%; /* Bright Yellow for high-contrast accent */
+    --accent-foreground: 0 0% 0%; /* Black text on accent */
+    --destructive: 0 100% 50%; /* Bright Red */
+    --destructive-foreground: 0 0% 0%; /* Black text on destructive */
     --border: 0 0% 40%;
     --input: 0 0% 10%;
     --ring: 0 0% 100%;
@@ -97,7 +99,7 @@
     --sidebar-foreground: 0 0% 100%;
     --sidebar-primary: 0 0% 100%;
     --sidebar-primary-foreground: 0 0% 0%;
-    --sidebar-accent: 0 0% 90%;
+    --sidebar-accent: 60 100% 50%;
     --sidebar-accent-foreground: 0 0% 0%;
     --sidebar-border: 0 0% 40%;
     --sidebar-ring: 0 0% 100%;
