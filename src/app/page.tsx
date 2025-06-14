@@ -50,6 +50,14 @@ export default function HomePage() {
               <CardTitle className="font-headline text-xl">1. Sign Up & Choose Role</CardTitle>
             </CardHeader>
             <CardContent>
+              <Image
+                src="https://placehold.co/300x200.png"
+                alt="Sign up process illustration"
+                width={300}
+                height={200}
+                className="rounded-md shadow-md mx-auto mb-4"
+                data-ai-hint="user registration interface"
+              />
               <p className="text-foreground/70">
                 Create your account in minutes and select your role – Teacher, Student, or Parent – to unlock a tailored experience.
               </p>
@@ -63,6 +71,14 @@ export default function HomePage() {
               <CardTitle className="font-headline text-xl">2. Access Your Dashboard</CardTitle>
             </CardHeader>
             <CardContent>
+              <Image
+                src="https://placehold.co/300x200.png"
+                alt="Dashboard illustration"
+                width={300}
+                height={200}
+                className="rounded-md shadow-md mx-auto mb-4"
+                data-ai-hint="dashboard mockup"
+              />
               <p className="text-foreground/70">
                 Navigate your personalized dashboard, designed to give you quick access to all the tools and information you need.
               </p>
@@ -76,6 +92,14 @@ export default function HomePage() {
               <CardTitle className="font-headline text-xl">3. Explore AI Features</CardTitle>
             </CardHeader>
             <CardContent>
+               <Image
+                src="https://placehold.co/300x200.png"
+                alt="AI features illustration"
+                width={300}
+                height={200}
+                className="rounded-md shadow-md mx-auto mb-4"
+                data-ai-hint="ai brain technology"
+              />
               <p className="text-foreground/70">
                 Leverage AI for lesson planning, quiz generation, automated grading, content review, and much more.
               </p>
@@ -170,7 +194,7 @@ export default function HomePage() {
               <Quote className="h-8 w-8 text-primary mb-4" />
               <p className="italic text-foreground/80 mb-4">"EduGenius has transformed how I plan my lessons. The AI tools are incredibly intuitive and save me hours of work each week!"</p>
               <p className="font-semibold">- Ms. Sarah K., 8th Grade Science Teacher</p>
-              <Image src="https://placehold.co/150x150.png" alt="Teacher testimonial" width={80} height={80} className="rounded-full mt-4 float-right" data-ai-hint="teacher person" />
+              <Image src="https://placehold.co/80x80.png" alt="Teacher testimonial" width={80} height={80} className="rounded-full mt-4 float-right" data-ai-hint="teacher person" />
             </CardContent>
           </Card>
           <Card className="shadow-lg">
@@ -178,7 +202,7 @@ export default function HomePage() {
               <Quote className="h-8 w-8 text-primary mb-4" />
               <p className="italic text-foreground/80 mb-4">"Learning with EduGenius is fun! The lessons are easy to follow, and I like that I can learn at my own pace. The AI feedback helps me understand my mistakes."</p>
               <p className="font-semibold">- Alex P., Grade 6 Student</p>
-               <Image src="https://placehold.co/150x150.png" alt="Student testimonial" width={80} height={80} className="rounded-full mt-4 float-right" data-ai-hint="student person" />
+               <Image src="https://placehold.co/80x80.png" alt="Student testimonial" width={80} height={80} className="rounded-full mt-4 float-right" data-ai-hint="student person" />
             </CardContent>
           </Card>
         </div>
