@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useState, useMemo } from "react";
@@ -10,9 +9,21 @@ import { Badge } from "@/components/ui/badge";
 import { BookOpen, PlusCircle, Edit, Trash2, Search, Filter } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog";
+import { useToast } from "@/hooks/use-toast";
 
 // Mock data for lessons
-const lessons = [
+const lessonsData = [
   { id: "1", title: "Introduction to Algebra", subject: "Mathematics", dateCreated: "2024-07-01", status: "Published" },
   { id: "2", title: "The Solar System", subject: "Science", dateCreated: "2024-07-05", status: "Draft" },
   { id: "3", title: "Shakespeare's Sonnets", subject: "English", dateCreated: "2024-06-20", status: "Published" },
@@ -23,11 +34,13 @@ const lessons = [
 const lessonStatuses = ["Published", "Draft", "Archived"];
 
 export default function TeacherLessonsPage() {
+  const [lessons, setLessons] = useState(lessonsData);
   const [searchTerm, setSearchTerm] = useState("");
   const [statusFilter, setStatusFilter] = useState("all");
   const [subjectFilter, setSubjectFilter] = useState("all");
+  const { toast } = useToast();
 
-  const uniqueSubjects = useMemo(() => ["all", ...Array.from(new Set(lessons.map(l => l.subject)))], []);
+  const uniqueSubjects = useMemo(() => ["all", ...Array.from(new Set(lessons.map(l => l.subject)))], [lessons]);
 
   const filteredLessons = useMemo(() => {
     return lessons.filter(lesson => {
@@ -36,7 +49,7 @@ export default function TeacherLessonsPage() {
       const subjectMatch = subjectFilter === "all" || lesson.subject === subjectFilter;
       return searchMatch && statusMatch && subjectMatch;
     });
-  }, [searchTerm, statusFilter, subjectFilter]);
+  }, [lessons, searchTerm, statusFilter, subjectFilter]);
   
   const getBadgeVariant = (status: string): "default" | "secondary" | "outline" | "destructive" => {
     switch (status) {
@@ -49,7 +62,15 @@ export default function TeacherLessonsPage() {
       default:
         return "secondary";
     }
-  }
+  };
+
+  const handleDeleteLesson = (lessonId: string) => {
+    setLessons(prevLessons => prevLessons.filter(lesson => lesson.id !== lessonId));
+    toast({
+      title: "Lesson Deleted",
+      description: "The lesson has been successfully removed.",
+    });
+  };
 
   return (
     <div className="space-y-6">
@@ -143,11 +164,30 @@ export default function TeacherLessonsPage() {
                   </CardContent>
                   <CardFooter className="flex justify-end gap-2 bg-secondary/30 p-3">
                     <Button variant="outline" size="sm" asChild>
-                      <Link href="#"><Edit className="mr-1 h-3 w-3" /> Edit</Link>
+                      <Link href={`/dashboard/teacher/lessons/edit/${lesson.id}`}><Edit className="mr-1 h-3 w-3" /> Edit</Link>
                     </Button>
-                    <Button variant="destructive" size="sm" onClick={() => alert(`Delete ${lesson.title}? (Mock action)`)}>
-                      <Trash2 className="mr-1 h-3 w-3" /> Delete
-                    </Button>
+                    <AlertDialog>
+                      <AlertDialogTrigger asChild>
+                        <Button variant="destructive" size="sm">
+                          <Trash2 className="mr-1 h-3 w-3" /> Delete
+                        </Button>
+                      </AlertDialogTrigger>
+                      <AlertDialogContent>
+                        <AlertDialogHeader>
+                          <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                          <AlertDialogDescription>
+                            This action cannot be undone. This will permanently delete the lesson
+                            "{lesson.title}".
+                          </AlertDialogDescription>
+                        </AlertDialogHeader>
+                        <AlertDialogFooter>
+                          <AlertDialogCancel>Cancel</AlertDialogCancel>
+                          <AlertDialogAction onClick={() => handleDeleteLesson(lesson.id)}>
+                            Continue
+                          </AlertDialogAction>
+                        </AlertDialogFooter>
+                      </AlertDialogContent>
+                    </AlertDialog>
                   </CardFooter>
                 </Card>
               ))}
@@ -158,4 +198,3 @@ export default function TeacherLessonsPage() {
     </div>
   );
 }
-
