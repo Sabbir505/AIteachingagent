@@ -1,8 +1,13 @@
+
 "use client";
 
+import { useState, useMemo } from "react";
 import { Button } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent, CardFooter } from "@/components/ui/card";
-import { BookOpen, PlusCircle, Edit, Trash2 } from "lucide-react";
+import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Badge } from "@/components/ui/badge";
+import { BookOpen, PlusCircle, Edit, Trash2, Search, Filter } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -12,13 +17,47 @@ const lessons = [
   { id: "2", title: "The Solar System", subject: "Science", dateCreated: "2024-07-05", status: "Draft" },
   { id: "3", title: "Shakespeare's Sonnets", subject: "English", dateCreated: "2024-06-20", status: "Published" },
   { id: "4", title: "World War II Overview", subject: "History", dateCreated: "2024-07-10", status: "Archived" },
+  { id: "5", title: "Advanced Algebra Concepts", subject: "Mathematics", dateCreated: "2024-07-12", status: "Draft" },
 ];
 
+const lessonStatuses = ["Published", "Draft", "Archived"];
+
 export default function TeacherLessonsPage() {
+  const [searchTerm, setSearchTerm] = useState("");
+  const [statusFilter, setStatusFilter] = useState("all");
+  const [subjectFilter, setSubjectFilter] = useState("all");
+
+  const uniqueSubjects = useMemo(() => ["all", ...Array.from(new Set(lessons.map(l => l.subject)))], []);
+
+  const filteredLessons = useMemo(() => {
+    return lessons.filter(lesson => {
+      const searchMatch = lesson.title.toLowerCase().includes(searchTerm.toLowerCase()) || lesson.subject.toLowerCase().includes(searchTerm.toLowerCase());
+      const statusMatch = statusFilter === "all" || lesson.status === statusFilter;
+      const subjectMatch = subjectFilter === "all" || lesson.subject === subjectFilter;
+      return searchMatch && statusMatch && subjectMatch;
+    });
+  }, [searchTerm, statusFilter, subjectFilter]);
+  
+  const getBadgeVariant = (status: string): "default" | "secondary" | "outline" | "destructive" => {
+    switch (status) {
+      case "Published":
+        return "default";
+      case "Draft":
+        return "secondary";
+      case "Archived":
+        return "outline";
+      default:
+        return "secondary";
+    }
+  }
+
   return (
     <div className="space-y-6">
-      <div className="flex justify-between items-center">
-        <h1 className="text-3xl font-bold font-headline">My Lessons</h1>
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
+        <div>
+          <h1 className="text-3xl font-bold font-headline">My Lessons</h1>
+          <p className="text-muted-foreground">View, manage, and create lessons for your classes.</p>
+        </div>
         <Button asChild>
           <Link href="/dashboard/teacher/lessons/create">
             <PlusCircle className="mr-2 h-4 w-4" /> Create New Lesson
@@ -28,46 +67,82 @@ export default function TeacherLessonsPage() {
 
       <Card>
         <CardHeader>
-          <CardTitle>Lesson Management</CardTitle>
-          <CardDescription>View, edit, or create new lessons for your classes.</CardDescription>
+          <CardTitle className="flex items-center"><Filter className="mr-2 h-5 w-5"/> Filter & Search Lessons</CardTitle>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input 
+                placeholder="Search by title or subject..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-9"
+              />
+            </div>
+             <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger>
+                <SelectValue placeholder="Filter by status" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="all">All Statuses</SelectItem>
+                {lessonStatuses.map(status => (
+                  <SelectItem key={status} value={status}>{status}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+            <Select value={subjectFilter} onValueChange={setSubjectFilter}>
+              <SelectTrigger>
+                <SelectValue placeholder="Filter by subject" />
+              </SelectTrigger>
+              <SelectContent>
+                {uniqueSubjects.map(subject => (
+                  <SelectItem key={subject} value={subject} className="capitalize">{subject}</SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
+          </div>
         </CardHeader>
         <CardContent>
-          {lessons.length === 0 ? (
+          {filteredLessons.length === 0 ? (
             <div className="text-center py-12">
               <Image 
                 src="https://placehold.co/300x200.png" 
-                alt="No lessons" 
+                alt="No lessons found" 
                 width={300} 
                 height={200} 
                 className="mx-auto mb-4 rounded-md"
-                data-ai-hint="empty state books"
+                data-ai-hint="empty state documents"
               />
-              <h3 className="text-xl font-semibold mb-2">No Lessons Yet</h3>
-              <p className="text-muted-foreground mb-4">Start by creating your first lesson plan.</p>
-              <Button asChild>
-                <Link href="/dashboard/teacher/lessons/create">
-                  <PlusCircle className="mr-2 h-4 w-4" /> Create Lesson
-                </Link>
-              </Button>
+              <h3 className="text-xl font-semibold mb-2">No Lessons Found</h3>
+              <p className="text-muted-foreground mb-4">
+                {lessons.length > 0 ? "No lessons match your current filters." : "Start by creating your first lesson plan!"}
+              </p>
+              {lessons.length === 0 && (
+                <Button asChild>
+                  <Link href="/dashboard/teacher/lessons/create">
+                    <PlusCircle className="mr-2 h-4 w-4" /> Create Lesson
+                  </Link>
+                </Button>
+              )}
             </div>
           ) : (
             <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-              {lessons.map((lesson) => (
-                <Card key={lesson.id} className="flex flex-col">
+              {filteredLessons.map((lesson) => (
+                <Card key={lesson.id} className="flex flex-col hover:shadow-lg transition-shadow">
                   <CardHeader>
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-start justify-between">
                       <CardTitle className="text-lg font-semibold">{lesson.title}</CardTitle>
-                      <BookOpen className="h-5 w-5 text-primary" />
+                      <BookOpen className="h-5 w-5 text-primary flex-shrink-0" />
                     </div>
                     <CardDescription>{lesson.subject}</CardDescription>
                   </CardHeader>
-                  <CardContent className="flex-grow">
+                  <CardContent className="flex-grow space-y-2">
                     <p className="text-sm text-muted-foreground">Date Created: {lesson.dateCreated}</p>
-                    <p className="text-sm">Status: <span className={`font-medium ${lesson.status === 'Published' ? 'text-green-600' : lesson.status === 'Draft' ? 'text-yellow-600' : 'text-gray-500'}`}>{lesson.status}</span></p>
+                    <div>
+                      <Badge variant={getBadgeVariant(lesson.status)}>{lesson.status}</Badge>
+                    </div>
                   </CardContent>
-                  <CardFooter className="flex justify-end gap-2">
+                  <CardFooter className="flex justify-end gap-2 bg-secondary/30 p-3">
                     <Button variant="outline" size="sm" asChild>
-                       {/* Placeholder link, ideally to an edit page /dashboard/teacher/lessons/edit/[lessonId] */}
                       <Link href="#"><Edit className="mr-1 h-3 w-3" /> Edit</Link>
                     </Button>
                     <Button variant="destructive" size="sm" onClick={() => alert(`Delete ${lesson.title}? (Mock action)`)}>
@@ -83,3 +158,4 @@ export default function TeacherLessonsPage() {
     </div>
   );
 }
+
