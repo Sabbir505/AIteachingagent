@@ -14,8 +14,8 @@ export default function SiteHeader() {
   const { user } = useAuth();
   const pathname = usePathname();
 
-  // Hide header on auth pages
-  if (pathname?.startsWith("/login") || pathname?.startsWith("/signup")) {
+  // Hide header on auth pages and dashboard
+  if (pathname?.startsWith("/login") || pathname?.startsWith("/signup") || pathname?.startsWith("/dashboard")) {
     return null;
   }
 
