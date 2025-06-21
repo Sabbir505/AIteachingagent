@@ -1,6 +1,7 @@
 
 "use client";
 
+import { useState } from "react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -33,10 +34,53 @@ const mockLessonData = {
   ]
 };
 
+type LessonPhase = { title: string; time: string; activity: string; };
+type LessonMaterial = { type: string; name: string; icon: React.ElementType; link?: string; };
+type LessonData = Omit<typeof mockLessonData, 'phases' | 'materials'> & {
+    phases: LessonPhase[];
+    materials: LessonMaterial[];
+};
+
 
 export default function EditLessonPage() {
   const params = useParams();
   const lessonId = Array.isArray(params.lessonId) ? params.lessonId[0] : params.lessonId;
+  const [lessonData, setLessonData] = useState<LessonData>(mockLessonData);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: keyof LessonData) => {
+    setLessonData(prev => ({ ...prev, [field]: e.target.value }));
+  };
+  
+  const handleSelectChange = (value: string, field: keyof LessonData) => {
+    setLessonData(prev => ({ ...prev, [field]: value }));
+  };
+
+  const handlePhaseChange = (index: number, field: keyof LessonPhase, value: string) => {
+    const newPhases = [...lessonData.phases];
+    newPhases[index] = { ...newPhases[index], [field]: value };
+    setLessonData(prev => ({ ...prev, phases: newPhases }));
+  };
+
+  const handleAddPhase = () => {
+    setLessonData(prev => ({
+      ...prev,
+      phases: [...prev.phases, { title: "New Phase", time: "5 min", activity: "" }],
+    }));
+  };
+
+  const handleDeletePhase = (index: number) => {
+    setLessonData(prev => ({
+      ...prev,
+      phases: prev.phases.filter((_, i) => i !== index),
+    }));
+  };
+
+  const handleDeleteMaterial = (index: number) => {
+    setLessonData(prev => ({
+      ...prev,
+      materials: prev.materials.filter((_, i) => i !== index),
+    }));
+  };
 
   return (
     <div className="flex flex-col h-full">
@@ -49,7 +93,7 @@ export default function EditLessonPage() {
               </Link>
            </Button>
            <div className="text-sm text-muted-foreground">
-             <span className="max-w-[200px] truncate hidden md:inline">Editing: {mockLessonData.title}</span>
+             <span className="max-w-[200px] truncate hidden md:inline">Editing: {lessonData.title}</span>
              <span className="hidden md:inline"> | Last saved 1 min ago</span>
            </div>
         </div>
@@ -75,15 +119,15 @@ export default function EditLessonPage() {
             <CardContent className="grid md:grid-cols-2 gap-4">
               <div className="space-y-1">
                 <Label htmlFor="lessonTitle">Lesson Title</Label>
-                <Input id="lessonTitle" defaultValue={mockLessonData.title} />
+                <Input id="lessonTitle" value={lessonData.title} onChange={(e) => handleInputChange(e, 'title')} />
               </div>
               <div className="space-y-1">
                 <Label htmlFor="lessonSubject">Subject</Label>
-                <Input id="lessonSubject" defaultValue={mockLessonData.subject} />
+                <Input id="lessonSubject" value={lessonData.subject} onChange={(e) => handleInputChange(e, 'subject')} />
               </div>
                <div className="space-y-1">
                 <Label htmlFor="gradeLevel">Grade Level</Label>
-                <Select defaultValue={mockLessonData.gradeLevel}>
+                <Select value={lessonData.gradeLevel} onValueChange={(value) => handleSelectChange(value, 'gradeLevel')}>
                   <SelectTrigger id="gradeLevel">
                     <SelectValue />
                   </SelectTrigger>
@@ -96,7 +140,7 @@ export default function EditLessonPage() {
               </div>
               <div className="space-y-1">
                 <Label htmlFor="lessonDuration">Duration</Label>
-                <Select defaultValue={mockLessonData.duration}>
+                <Select value={lessonData.duration} onValueChange={(value) => handleSelectChange(value, 'duration')}>
                   <SelectTrigger id="lessonDuration">
                     <SelectValue />
                   </SelectTrigger>
@@ -121,48 +165,52 @@ export default function EditLessonPage() {
                   <AccordionItem value="objectives">
                     <AccordionTrigger className="text-lg font-semibold">🎯 Learning Objectives</AccordionTrigger>
                     <AccordionContent className="pt-4">
-                      <Textarea defaultValue={mockLessonData.learningObjectives} rows={4} className="mb-2" />
+                      <Textarea value={lessonData.learningObjectives} onChange={(e) => handleInputChange(e, 'learningObjectives')} rows={4} className="mb-2" />
                       <Button variant="ghost" size="sm" className="text-primary"><Wand2 className="mr-2 h-4 w-4" /> Improve with AI</Button>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="phases">
                     <AccordionTrigger className="text-lg font-semibold">🧩 Lesson Phases</AccordionTrigger>
                     <AccordionContent className="pt-4 space-y-4">
-                      {mockLessonData.phases.map((phase, index) => (
+                      {lessonData.phases.map((phase, index) => (
                         <Card key={index} className="bg-secondary/30">
                           <CardHeader className="flex flex-row items-center justify-between p-4">
                             <div className="flex items-center gap-2">
                               <GripVertical className="h-5 w-5 text-muted-foreground cursor-grab" />
-                              <CardTitle className="text-md font-medium">{phase.title}</CardTitle>
+                              <Input value={phase.title} onChange={(e) => handlePhaseChange(index, 'title', e.target.value)} className="text-md font-medium h-7 p-1 border-0 bg-transparent focus-visible:ring-1 focus-visible:ring-ring"/>
                               <div className="flex items-center text-sm text-muted-foreground ml-2">
                                 <Clock className="h-4 w-4 mr-1" />
-                                <Input defaultValue={phase.time} className="w-20 h-7 text-xs p-1" />
+                                <Input value={phase.time} onChange={(e) => handlePhaseChange(index, 'time', e.target.value)} className="w-20 h-7 text-xs p-1" />
                               </div>
                             </div>
                              <div className="flex items-center gap-1">
                                 <Button variant="ghost" size="icon" className="h-7 w-7"><Wand2 className="h-4 w-4 text-primary" /></Button>
-                                <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive"><Trash2 className="h-4 w-4" /></Button>
+                                <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => handleDeletePhase(index)}>
+                                    <Trash2 className="h-4 w-4" />
+                                </Button>
                              </div>
                           </CardHeader>
                           <CardContent className="p-4 pt-0">
-                            <Textarea defaultValue={phase.activity} rows={3} />
+                            <Textarea value={phase.activity} onChange={(e) => handlePhaseChange(index, 'activity', e.target.value)} rows={3} />
                           </CardContent>
                         </Card>
                       ))}
-                      <Button variant="outline" className="w-full mt-4"><PlusCircle className="mr-2 h-4 w-4" /> Add Phase</Button>
+                      <Button variant="outline" className="w-full mt-4" onClick={handleAddPhase}><PlusCircle className="mr-2 h-4 w-4" /> Add Phase</Button>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="materials">
                     <AccordionTrigger className="text-lg font-semibold">🧰 Materials & Resources</AccordionTrigger>
                     <AccordionContent className="pt-4 space-y-3">
-                      {mockLessonData.materials.map((material, index) => (
+                      {lessonData.materials.map((material, index) => (
                          <div key={index} className="flex items-center justify-between p-2 border rounded-md">
                            <div className="flex items-center gap-3">
                              <material.icon className="h-5 w-5 text-muted-foreground" />
                              <span className="text-sm font-medium">{material.name}</span>
                              {material.link && <LinkIcon className="h-4 w-4 text-primary cursor-pointer"/>}
                            </div>
-                           <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive"><Trash2 className="h-4 w-4" /></Button>
+                           <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => handleDeleteMaterial(index)}>
+                             <Trash2 className="h-4 w-4" />
+                           </Button>
                          </div>
                       ))}
                       <div className="!mt-6">
