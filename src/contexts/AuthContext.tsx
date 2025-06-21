@@ -1,3 +1,4 @@
+
 "use client";
 
 import type { ReactNode } from "react";
@@ -40,6 +41,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
     setLoading(false);
   }, []);
+
+  useEffect(() => {
+    const roles: UserRole[] = ['teacher', 'student', 'parent'];
+    // Clean up previous roles on user change
+    roles.forEach(r => document.body.classList.remove(`role-${r}`));
+
+    if (user?.role) {
+      document.body.classList.add(`role-${user.role}`);
+    }
+  }, [user]);
 
   const handleAuthSuccess = (loggedInUser: User | null) => {
     if (loggedInUser) {
