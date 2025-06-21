@@ -4,14 +4,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { ArrowLeft, Construction } from "lucide-react";
+import { useParams } from "next/navigation";
 
-interface EditLessonPageProps {
-    params: {
-        lessonId: string;
-    }
-}
+export default function EditLessonPage() {
+  const params = useParams();
+  const lessonId = Array.isArray(params.lessonId) ? params.lessonId[0] : params.lessonId;
 
-export default function EditLessonPage({ params }: EditLessonPageProps) {
   return (
     <div className="space-y-6">
        <Button variant="outline" asChild>
@@ -24,7 +22,7 @@ export default function EditLessonPage({ params }: EditLessonPageProps) {
          <CardHeader>
            <CardTitle className="flex items-center">
              <Construction className="mr-2 h-6 w-6 text-primary" />
-             Editing Lesson: {params.lessonId}
+             Editing Lesson: {lessonId}
            </CardTitle>
            <CardDescription>
              This is a placeholder page for editing a lesson. In a real application, this would contain a form pre-filled with the lesson's data.
