@@ -13,6 +13,7 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Textarea } from "@/components/ui/textarea";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Separator } from "@/components/ui/separator";
+import { useToast } from "@/hooks/use-toast";
 
 // Mock data for the lesson being edited
 const mockLessonData = {
@@ -46,6 +47,7 @@ export default function EditLessonPage() {
   const params = useParams();
   const lessonId = Array.isArray(params.lessonId) ? params.lessonId[0] : params.lessonId;
   const [lessonData, setLessonData] = useState<LessonData>(mockLessonData);
+  const { toast } = useToast();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: keyof LessonData) => {
     setLessonData(prev => ({ ...prev, [field]: e.target.value }));
@@ -66,6 +68,10 @@ export default function EditLessonPage() {
       ...prev,
       phases: [...prev.phases, { title: "New Phase", time: "5 min", activity: "" }],
     }));
+     toast({
+        title: "Phase Added",
+        description: "A new lesson phase has been added.",
+      });
   };
 
   const handleDeletePhase = (index: number) => {
@@ -73,6 +79,11 @@ export default function EditLessonPage() {
       ...prev,
       phases: prev.phases.filter((_, i) => i !== index),
     }));
+    toast({
+        title: "Phase Deleted",
+        description: "The lesson phase has been removed.",
+        variant: "destructive"
+      });
   };
 
   const handleDeleteMaterial = (index: number) => {
@@ -80,6 +91,29 @@ export default function EditLessonPage() {
       ...prev,
       materials: prev.materials.filter((_, i) => i !== index),
     }));
+     toast({
+        title: "Material Removed",
+        description: "The material has been removed from the lesson.",
+        variant: "destructive"
+      });
+  };
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files[0]) {
+      const file = e.target.files[0];
+      // In a real app, you would upload this file
+      console.log("File selected:", file);
+      setLessonData(prev => ({
+        ...prev,
+        materials: [...prev.materials, { type: "file", name: file.name, icon: FileUp }],
+      }));
+      toast({
+        title: "File Added",
+        description: `${file.name} has been added to your materials.`,
+      });
+      // Reset file input
+      e.target.value = '';
+    }
   };
 
   return (
@@ -98,9 +132,9 @@ export default function EditLessonPage() {
            </div>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm"><Eye className="mr-2 h-4 w-4" /> Preview</Button>
-          <Button size="sm"><Save className="mr-2 h-4 w-4" /> Save Changes</Button>
-          <Button variant="ghost" size="icon"><Share className="h-4 w-4" /></Button>
+          <Button variant="outline" size="sm" onClick={() => toast({ title: "Preview Mode", description: "This would show a student's view of the lesson." })}><Eye className="mr-2 h-4 w-4" /> Preview</Button>
+          <Button size="sm" onClick={() => toast({ title: "Lesson Saved!", description: "Your changes have been saved successfully." })}><Save className="mr-2 h-4 w-4" /> Save Changes</Button>
+          <Button variant="ghost" size="icon" onClick={() => toast({ title: "Sharing Options", description: "Sharing functionality is not yet implemented." })}><Share className="h-4 w-4" /></Button>
         </div>
       </header>
 
@@ -166,7 +200,7 @@ export default function EditLessonPage() {
                     <AccordionTrigger className="text-lg font-semibold">🎯 Learning Objectives</AccordionTrigger>
                     <AccordionContent className="pt-4">
                       <Textarea value={lessonData.learningObjectives} onChange={(e) => handleInputChange(e, 'learningObjectives')} rows={4} className="mb-2" />
-                      <Button variant="ghost" size="sm" className="text-primary"><Wand2 className="mr-2 h-4 w-4" /> Improve with AI</Button>
+                      <Button variant="ghost" size="sm" className="text-primary" onClick={() => toast({ title: "AI Assist", description: "This feature will help improve learning objectives." })}><Wand2 className="mr-2 h-4 w-4" /> Improve with AI</Button>
                     </AccordionContent>
                   </AccordionItem>
                   <AccordionItem value="phases">
@@ -184,7 +218,7 @@ export default function EditLessonPage() {
                               </div>
                             </div>
                              <div className="flex items-center gap-1">
-                                <Button variant="ghost" size="icon" className="h-7 w-7"><Wand2 className="h-4 w-4 text-primary" /></Button>
+                                <Button variant="ghost" size="icon" className="h-7 w-7" onClick={() => toast({ title: "AI Assist", description: "This feature will help improve this lesson phase." })}><Wand2 className="h-4 w-4 text-primary" /></Button>
                                 <Button variant="ghost" size="icon" className="h-7 w-7 text-destructive" onClick={() => handleDeletePhase(index)}>
                                     <Trash2 className="h-4 w-4" />
                                 </Button>
@@ -215,7 +249,7 @@ export default function EditLessonPage() {
                       ))}
                       <div className="!mt-6">
                         <Label>Add New Material</Label>
-                        <div className="mt-2 flex justify-center items-center w-full px-6 pt-5 pb-6 border-2 border-dashed rounded-md cursor-pointer hover:border-primary">
+                        <Label htmlFor="file-upload" className="mt-2 flex justify-center items-center w-full px-6 pt-5 pb-6 border-2 border-dashed rounded-md cursor-pointer hover:border-primary">
                           <div className="space-y-1 text-center">
                             <FileUp className="mx-auto h-12 w-12 text-muted-foreground" />
                              <p className="text-sm text-muted-foreground">
@@ -223,7 +257,8 @@ export default function EditLessonPage() {
                              </p>
                             <p className="text-xs text-muted-foreground">PDF, DOC, PNG, JPG up to 10MB</p>
                           </div>
-                        </div>
+                           <Input id="file-upload" type="file" className="sr-only" onChange={handleFileChange} />
+                        </Label>
                       </div>
                     </AccordionContent>
                   </AccordionItem>
@@ -240,8 +275,8 @@ export default function EditLessonPage() {
               <CardTitle>AI Assistant & Tools</CardTitle>
             </CardHeader>
             <CardContent className="space-y-2">
-              <Button variant="outline" className="w-full justify-start"><Wand2 className="mr-2 h-4 w-4"/> Simplify Language</Button>
-              <Button variant="outline" className="w-full justify-start"><PlusCircle className="mr-2 h-4 w-4"/> Add a Quiz</Button>
+              <Button variant="outline" className="w-full justify-start" onClick={() => toast({ title: "AI Assistant", description: "Language simplification feature is not yet implemented." })}><Wand2 className="mr-2 h-4 w-4"/> Simplify Language</Button>
+              <Button variant="outline" className="w-full justify-start" onClick={() => toast({ title: "AI Assistant", description: "Quiz generation feature is not yet implemented." })}><PlusCircle className="mr-2 h-4 w-4"/> Add a Quiz</Button>
               <Separator className="my-2" />
                <Label className="text-xs text-muted-foreground">Version History</Label>
                <p className="text-sm">Not yet implemented.</p>
