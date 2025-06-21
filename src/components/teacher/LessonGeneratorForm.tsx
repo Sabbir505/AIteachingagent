@@ -92,7 +92,7 @@ export default function LessonGeneratorForm() {
   };
   
   const renderLoadingState = () => (
-    <Card className="col-span-1 lg:col-span-2">
+    <Card>
         <CardHeader>
             <CardTitle>AI is thinking...</CardTitle>
             <CardDescription>Generating a comprehensive lesson plan based on your inputs. This may take a moment.</CardDescription>
@@ -106,7 +106,7 @@ export default function LessonGeneratorForm() {
   );
 
   const renderOutput = () => generatedPlan && (
-    <Card className="col-span-1 lg:col-span-2 bg-secondary/30">
+    <Card className="bg-secondary/30">
         <CardHeader className="flex flex-row justify-between items-start">
             <div>
                 <CardTitle className="text-xl font-headline">Generated Plan: {generatedPlan.topic}</CardTitle>
@@ -331,7 +331,7 @@ export default function LessonGeneratorForm() {
             {/* Output Panel */}
             <div className="col-span-1 lg:col-span-2">
                 {isLoading ? renderLoadingState() : generatedPlan ? renderOutput() : (
-                    <Card className="col-span-1 lg:col-span-2 flex items-center justify-center min-h-[400px] border-dashed">
+                    <Card className="flex items-center justify-center min-h-[400px] border-dashed">
                         <div className="text-center p-8">
                             <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
                             <h3 className="mt-4 text-lg font-medium">Your Generated Lesson Plan Will Appear Here</h3>
