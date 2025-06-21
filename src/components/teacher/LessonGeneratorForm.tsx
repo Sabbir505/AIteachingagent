@@ -92,15 +92,15 @@ export default function LessonGeneratorForm() {
   };
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
-            {/* Input Panel */}
-            <Card className="col-span-1 sticky top-20">
+    <div className="space-y-6">
+        {/* The form is now self-contained and doesn't wrap the output */}
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <Card>
                 <CardHeader>
-                <CardTitle className="flex items-center"><Wand2 className="mr-2 h-6 w-6" /> AI Lesson Assistant</CardTitle>
-                <CardDescription>
-                    Provide the details and let AI create a plan for you.
-                </CardDescription>
+                    <CardTitle className="flex items-center"><Wand2 className="mr-2 h-6 w-6" /> AI Lesson Assistant</CardTitle>
+                    <CardDescription>
+                        Provide the details and let AI create a plan for you.
+                    </CardDescription>
                 </CardHeader>
                 <CardContent className="space-y-4">
                     {error && (
@@ -214,133 +214,133 @@ export default function LessonGeneratorForm() {
                     </Button>
                 </CardFooter>
             </Card>
+        </form>
 
-            {/* Output Panel */}
-            <div className="lg:col-span-2">
-              {isLoading ? (
-                <Card>
-                    <CardHeader>
-                        <CardTitle>AI is thinking...</CardTitle>
-                        <CardDescription>Generating a comprehensive lesson plan based on your inputs. This may take a moment.</CardDescription>
-                    </CardHeader>
-                    <CardContent className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
-                        <Wand2 className="h-16 w-16 text-primary animate-pulse" />
-                        <p className="text-muted-foreground">Building learning objectives...</p>
-                        <Loader2 className="h-6 w-6 animate-spin" />
-                    </CardContent>
-                </Card>
-              ) : generatedPlan ? (
-                <Card className="bg-secondary/30">
-                    <CardHeader className="flex flex-row justify-between items-start">
-                        <div>
-                            <CardTitle className="text-xl font-headline">Generated Plan: {generatedPlan.topic}</CardTitle>
-                            <CardDescription>
-                            Grade: {generatedPlan.gradeLevel}
-                            {generatedPlan.lessonType && ` | Type: ${generatedPlan.lessonType}`}
-                            {generatedPlan.learningDuration && ` | Duration: ${generatedPlan.learningDuration}`}
-                            </CardDescription>
-                        </div>
-                        <div className="flex gap-2">
-                            <TooltipProvider>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="outline" size="icon" onClick={() => toast({ title: "Bookmarked! (Placeholder)"})}><Bookmark className="h-4 w-4" /></Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent><p>Bookmark Plan</p></TooltipContent>
-                                </Tooltip>
-                                <Tooltip>
-                                    <TooltipTrigger asChild>
-                                        <Button variant="outline" size="icon" onClick={() => toast({ title: "Downloaded! (Placeholder)"})}><Download className="h-4 w-4" /></Button>
-                                    </TooltipTrigger>
-                                    <TooltipContent><p>Download as PDF</p></TooltipContent>
-                                </Tooltip>
-                            </TooltipProvider>
-                        </div>
-                    </CardHeader>
-                    <CardContent>
-                        <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
-                            <AccordionItem value="item-1">
-                                <AccordionTrigger className="text-lg font-semibold">🎯 Learning Objectives</AccordionTrigger>
-                                <AccordionContent className="p-4 bg-background rounded-md">
-                                    <p className="text-foreground/90 text-base">{generatedPlan.learningObjective}</p>
-                                </AccordionContent>
-                            </AccordionItem>
-                            <AccordionItem value="item-2">
-                                <AccordionTrigger className="text-lg font-semibold">🧩 Lesson Breakdown</AccordionTrigger>
-                                <AccordionContent>
-                                    <div className="overflow-x-auto rounded-md border bg-background">
-                                        <Table>
-                                            <TableHeader>
-                                            <TableRow>
-                                                <TableHead className="w-[100px]">Phase</TableHead>
-                                                <TableHead className="w-[80px]">Time</TableHead>
-                                                <TableHead>Activity Description</TableHead>
-                                            </TableRow>
-                                            </TableHeader>
-                                            <TableBody>
-                                            {generatedPlan.lessonBreakdown.map((phase, index) => (
-                                                <TableRow key={index}>
-                                                <TableCell className="font-medium">{phase.phase}</TableCell>
-                                                <TableCell>{phase.time}</TableCell>
-                                                <TableCell className="whitespace-pre-wrap">{phase.activityDescription}</TableCell>
-                                                </TableRow>
-                                            ))}
-                                            </TableBody>
-                                        </Table>
-                                    </div>
-                                </AccordionContent>
-                            </AccordionItem>
-                            <AccordionItem value="item-3">
-                                <AccordionTrigger className="text-lg font-semibold">🧰 Required Materials</AccordionTrigger>
-                                <AccordionContent className="p-4 bg-background rounded-md grid grid-cols-1 md:grid-cols-2 gap-4">
-                                    {generatedPlan.materials.map((material, index) => {
-                                        const Icon = materialTypeIcons[material.type.toLowerCase()] || materialTypeIcons.default;
-                                        return (
-                                            <Card key={index} className="flex items-start p-3">
-                                                <Icon className="h-6 w-6 text-primary mr-4 mt-1 flex-shrink-0" />
-                                                <div>
-                                                    <p className="font-medium">{material.name}</p>
-                                                    <p className="text-xs text-muted-foreground capitalize">{material.type}</p>
-                                                    {material.link && (
-                                                        <a href={material.link.startsWith('placeholder://') ? '#' : material.link} target="_blank" rel="noopener noreferrer" className="block text-xs text-primary hover:underline truncate">
-                                                            {material.link.startsWith('placeholder://') ? 'Placeholder Link' : material.link}
-                                                        </a>
-                                                    )}
-                                                    {material.description && <p className="text-xs text-foreground/80 mt-1">{material.description}</p>}
-                                                </div>
-                                            </Card>
-                                        );
-                                    })}
-                                </AccordionContent>
-                            </AccordionItem>
-                             <AccordionItem value="item-4">
-                                <AccordionTrigger className="text-lg font-semibold">♿ Accessibility Suggestions</AccordionTrigger>
-                                <AccordionContent className="p-4 bg-background rounded-md">
-                                    <ul className="list-disc list-inside space-y-2 text-foreground/90">
-                                        {generatedPlan.accessibilitySuggestions.map((suggestion, index) => (
-                                        <li key={index}>{suggestion}</li>
-                                        ))}
-                                    </ul>
-                                </AccordionContent>
-                            </AccordionItem>
-                        </Accordion>
-                    </CardContent>
-                </Card>
-              ) : (
-                <Card className="flex items-center justify-center min-h-[400px] border-dashed">
-                    <div className="text-center p-8">
-                        <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
-                        <h3 className="mt-4 text-lg font-medium">Your Generated Lesson Plan Will Appear Here</h3>
-                        <p className="mt-1 text-sm text-muted-foreground">
-                            Fill out the form on the left to get started.
-                        </p>
+        {/* Output Panel is now below the form */}
+        <div className="space-y-6">
+            {isLoading ? (
+            <Card>
+                <CardHeader>
+                    <CardTitle>AI is thinking...</CardTitle>
+                    <CardDescription>Generating a comprehensive lesson plan based on your inputs. This may take a moment.</CardDescription>
+                </CardHeader>
+                <CardContent className="flex flex-col items-center justify-center min-h-[400px] space-y-4">
+                    <Wand2 className="h-16 w-16 text-primary animate-pulse" />
+                    <p className="text-muted-foreground">Building learning objectives...</p>
+                    <Loader2 className="h-6 w-6 animate-spin" />
+                </CardContent>
+            </Card>
+            ) : generatedPlan ? (
+            <Card className="bg-secondary/30">
+                <CardHeader className="flex flex-row justify-between items-start">
+                    <div>
+                        <CardTitle className="text-xl font-headline">Generated Plan: {generatedPlan.topic}</CardTitle>
+                        <CardDescription>
+                        Grade: {generatedPlan.gradeLevel}
+                        {generatedPlan.lessonType && ` | Type: ${generatedPlan.lessonType}`}
+                        {generatedPlan.learningDuration && ` | Duration: ${generatedPlan.learningDuration}`}
+                        </CardDescription>
                     </div>
-                </Card>
-              )}
-            </div>
+                    <div className="flex gap-2">
+                        <TooltipProvider>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button variant="outline" size="icon" onClick={() => toast({ title: "Bookmarked! (Placeholder)"})}><Bookmark className="h-4 w-4" /></Button>
+                                </TooltipTrigger>
+                                <TooltipContent><p>Bookmark Plan</p></TooltipContent>
+                            </Tooltip>
+                            <Tooltip>
+                                <TooltipTrigger asChild>
+                                    <Button variant="outline" size="icon" onClick={() => toast({ title: "Downloaded! (Placeholder)"})}><Download className="h-4 w-4" /></Button>
+                                </TooltipTrigger>
+                                <TooltipContent><p>Download as PDF</p></TooltipContent>
+                            </Tooltip>
+                        </TooltipProvider>
+                    </div>
+                </CardHeader>
+                <CardContent>
+                    <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
+                        <AccordionItem value="item-1">
+                            <AccordionTrigger className="text-lg font-semibold">🎯 Learning Objectives</AccordionTrigger>
+                            <AccordionContent className="p-4 bg-background rounded-md">
+                                <p className="text-foreground/90 text-base">{generatedPlan.learningObjective}</p>
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-2">
+                            <AccordionTrigger className="text-lg font-semibold">🧩 Lesson Breakdown</AccordionTrigger>
+                            <AccordionContent>
+                                <div className="overflow-x-auto rounded-md border bg-background">
+                                    <Table>
+                                        <TableHeader>
+                                        <TableRow>
+                                            <TableHead className="w-[100px]">Phase</TableHead>
+                                            <TableHead className="w-[80px]">Time</TableHead>
+                                            <TableHead>Activity Description</TableHead>
+                                        </TableRow>
+                                        </TableHeader>
+                                        <TableBody>
+                                        {generatedPlan.lessonBreakdown.map((phase, index) => (
+                                            <TableRow key={index}>
+                                            <TableCell className="font-medium">{phase.phase}</TableCell>
+                                            <TableCell>{phase.time}</TableCell>
+                                            <TableCell className="whitespace-pre-wrap">{phase.activityDescription}</TableCell>
+                                            </TableRow>
+                                        ))}
+                                        </TableBody>
+                                    </Table>
+                                </div>
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-3">
+                            <AccordionTrigger className="text-lg font-semibold">🧰 Required Materials</AccordionTrigger>
+                            <AccordionContent className="p-4 bg-background rounded-md grid grid-cols-1 md:grid-cols-2 gap-4">
+                                {generatedPlan.materials.map((material, index) => {
+                                    const Icon = materialTypeIcons[material.type.toLowerCase()] || materialTypeIcons.default;
+                                    return (
+                                        <Card key={index} className="flex items-start p-3">
+                                            <Icon className="h-6 w-6 text-primary mr-4 mt-1 flex-shrink-0" />
+                                            <div>
+                                                <p className="font-medium">{material.name}</p>
+                                                <p className="text-xs text-muted-foreground capitalize">{material.type}</p>
+                                                {material.link && (
+                                                    <a href={material.link.startsWith('placeholder://') ? '#' : material.link} target="_blank" rel="noopener noreferrer" className="block text-xs text-primary hover:underline truncate">
+                                                        {material.link.startsWith('placeholder://') ? 'Placeholder Link' : material.link}
+                                                    </a>
+                                                )}
+                                                {material.description && <p className="text-xs text-foreground/80 mt-1">{material.description}</p>}
+                                            </div>
+                                        </Card>
+                                    );
+                                })}
+                            </AccordionContent>
+                        </AccordionItem>
+                         <AccordionItem value="item-4">
+                            <AccordionTrigger className="text-lg font-semibold">♿ Accessibility Suggestions</AccordionTrigger>
+                            <AccordionContent className="p-4 bg-background rounded-md">
+                                <ul className="list-disc list-inside space-y-2 text-foreground/90">
+                                    {generatedPlan.accessibilitySuggestions.map((suggestion, index) => (
+                                    <li key={index}>{suggestion}</li>
+                                    ))}
+                                </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                    </Accordion>
+                </CardContent>
+            </Card>
+            ) : (
+                !isLoading && (
+                    <Card className="flex items-center justify-center min-h-[200px] border-dashed">
+                        <div className="text-center p-8">
+                            <FileText className="mx-auto h-12 w-12 text-muted-foreground" />
+                            <h3 className="mt-4 text-lg font-medium">Your Generated Lesson Plan Will Appear Here</h3>
+                            <p className="mt-1 text-sm text-muted-foreground">
+                                Fill out the form above to get started.
+                            </p>
+                        </div>
+                    </Card>
+                )
+            )}
         </div>
-    </form>
+    </div>
   );
 }
-
-    
