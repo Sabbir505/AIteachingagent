@@ -1,6 +1,6 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { GraduationCap, BarChart, CheckCircle, Award, TrendingUp, TrendingDown, AlertTriangle } from "lucide-react";
-import Image from "next/image";
+
 // Placeholder for charts - in a real app, use shadcn/ui Chart components with Recharts
 
 export default function StudentPerformancePage() {
@@ -76,14 +76,6 @@ export default function StudentPerformancePage() {
               </div>
             ))}
           </div>
-           <Image 
-            src="https://placehold.co/700x300.png" 
-            alt="Performance chart placeholder" 
-            width={700} 
-            height={300} 
-            className="w-full h-auto object-cover rounded-md mt-6"
-            data-ai-hint="graph chart student"
-          />
         </CardContent>
       </Card>
       
