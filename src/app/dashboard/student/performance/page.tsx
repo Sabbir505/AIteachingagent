@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
-import { GraduationCap, BarChart, CheckCircle, Award, TrendingUp, AlertTriangle } from "lucide-react";
+import { GraduationCap, BarChart, CheckCircle, Award, TrendingUp, TrendingDown, AlertTriangle } from "lucide-react";
 import Image from "next/image";
 // Placeholder for charts - in a real app, use shadcn/ui Chart components with Recharts
 
