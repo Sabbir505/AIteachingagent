@@ -12,7 +12,7 @@ export default function HomePage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="container grid lg:grid-cols-2 gap-12 items-center py-12 md:py-24">
-          <div className="flex flex-col items-center text-center lg:items-start lg:text-left space-y-6">
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left space-y-6 lg:pl-8">
             <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl font-headline">
               Revolutionize Education with AI-Powered Multimodal Learning
             </h1>
@@ -29,7 +29,7 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="lg:block">
+          <div className="hidden lg:block">
             <Image
               src="https://placehold.co/600x500.png"
               alt="A preview of the EduGenius dashboard interface"
