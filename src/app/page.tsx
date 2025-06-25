@@ -1,9 +1,8 @@
-
 import { Button, buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Bot, BarChart, Users, GraduationCap, HeartHandshake, Eye, ListTodo, ShieldCheck, FilePlus2, PlayCircle } from "lucide-react";
+import { ArrowRight, Users, GraduationCap, HeartHandshake, PlayCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 export default function HomePage() {
@@ -137,20 +136,22 @@ export default function HomePage() {
 // Helper components for cleaner structure
 
 const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React.ElementType, title: string, description: string, features: string[] }) => (
-    <Card className="h-full flex flex-col items-center text-center">
-        <CardHeader className="items-center">
-            <div className="bg-primary/10 text-primary w-12 h-12 rounded-lg flex items-center justify-center mb-4">
+    <Card className="h-full flex flex-col text-left p-2 hover:shadow-xl transition-shadow duration-300">
+        <CardHeader className="flex-row items-start gap-4">
+            <div className="bg-primary/10 text-primary min-w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Icon className="w-6 h-6" />
             </div>
-            <CardTitle>{title}</CardTitle>
-             <CardDescription>{description}</CardDescription>
+            <div>
+                <CardTitle className="text-xl mb-1">{title}</CardTitle>
+                <CardDescription>{description}</CardDescription>
+            </div>
         </CardHeader>
-        <CardContent className="flex-grow w-full">
-            <ul className="space-y-2 text-sm text-muted-foreground">
+        <CardContent className="flex-grow pt-0">
+            <ul className="space-y-2 text-sm text-foreground/80 mt-4">
                 {features.map(feature => (
-                    <li key={feature} className="flex items-center justify-center">
-                        <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
-                        {feature}
+                    <li key={feature} className="flex items-start">
+                        <CheckCircle className="h-4 w-4 mr-2 text-green-500 flex-shrink-0 mt-1" />
+                        <span>{feature}</span>
                     </li>
                 ))}
             </ul>
@@ -159,7 +160,7 @@ const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React
 );
 
 const StepCard = ({ number, title, description }: { number: string, title: string, description: string }) => (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center p-6 bg-background border rounded-lg">
         <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold mb-4">
             {number}
         </div>
@@ -169,7 +170,7 @@ const StepCard = ({ number, title, description }: { number: string, title: strin
 );
 
 const TestimonialCard = ({ quote, name, role, imageHint }: { quote: string, name: string, role: string, imageHint: string }) => (
-  <Card className="h-full flex flex-col">
+  <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
     <CardContent className="pt-6 flex-grow">
       <p className="italic text-foreground/80">"{quote}"</p>
     </CardContent>
