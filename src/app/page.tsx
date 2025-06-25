@@ -1,8 +1,9 @@
+
 import { Button, buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Users, GraduationCap, HeartHandshake, PlayCircle, FileText, FileQuestion, Presentation, BookOpenCheck } from "lucide-react";
+import { ArrowRight, Users, GraduationCap, HeartHandshake, PlayCircle, FileText, FileQuestion, Presentation, BookOpenCheck, Type, Eye, Lightbulb, Mic } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 export default function HomePage() {
@@ -129,9 +130,41 @@ export default function HomePage() {
             </div>
           </div>
         </section>
+        
+        {/* Accessibility Section */}
+        <section className="py-12 md:py-24 bg-secondary/40">
+          <div className="container">
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <h2 className="text-3xl font-bold font-headline">Accessible by Design</h2>
+              <p className="mt-4 text-lg text-muted-foreground">Ensuring learning is for everyone, regardless of ability.</p>
+            </div>
+            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <AiFeatureCard
+                icon={Type}
+                title="Dyslexia-Friendly Mode"
+                description="Switch to a font specifically designed to improve readability for users with dyslexia."
+              />
+              <AiFeatureCard
+                icon={Eye}
+                title="High-Contrast Theme"
+                description="Enhance on-screen visibility with a theme that meets WCAG contrast standards."
+              />
+              <AiFeatureCard
+                icon={Lightbulb}
+                title="AI Accessibility Tips"
+                description="Receive AI-generated suggestions to make your lesson plans more inclusive for all learners."
+              />
+              <AiFeatureCard
+                icon={Mic}
+                title="Speech & Text Tools"
+                description="Text-to-speech and content simplification features are coming soon to aid comprehension."
+              />
+            </div>
+          </div>
+        </section>
 
         {/* How It Works Section */}
-        <section className="py-12 md:py-24 bg-secondary/40">
+        <section className="py-12 md:py-24">
             <div className="container">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl font-bold font-headline">Go from Idea to Impact in 3 Steps</h2>
@@ -147,7 +180,7 @@ export default function HomePage() {
 
 
         {/* Testimonials Section */}
-        <section className="py-12 md:py-24">
+        <section className="py-12 md:py-24 bg-secondary/40">
           <div className="container">
             <h2 className="text-3xl font-bold tracking-tight text-center font-headline mb-12">Why People Love EduGenius</h2>
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -174,7 +207,7 @@ export default function HomePage() {
         </section>
 
         {/* Final CTA Section */}
-        <section className="py-24 bg-secondary/40">
+        <section className="py-24">
           <div className="container text-center">
             <h2 className="text-4xl font-bold tracking-tight text-primary font-headline">Join the Educational Revolution.</h2>
             <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-foreground/80">
@@ -232,7 +265,7 @@ const AiFeatureCard = ({ icon: Icon, title, description }: { icon: React.Element
 
 
 const StepCard = ({ number, title, description }: { number: string, title: string, description: string }) => (
-    <div className="flex flex-col items-center p-6 bg-background border rounded-lg shadow-sm">
+    <div className="flex flex-col items-center p-6 bg-background border rounded-lg shadow-sm hover:shadow-lg transition-shadow">
         <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold mb-4">
             {number}
         </div>
@@ -281,3 +314,5 @@ const CheckCircle = (props: React.SVGProps<SVGSVGElement>) => (
       <polyline points="22 4 12 14.01 9 11.01" />
     </svg>
   );
+
+    
