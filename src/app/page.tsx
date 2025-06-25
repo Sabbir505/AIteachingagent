@@ -136,7 +136,7 @@ export default function HomePage() {
 // Helper components for cleaner structure
 
 const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React.ElementType, title: string, description: string, features: string[] }) => (
-    <Card className="h-full flex flex-col text-left p-2 hover:shadow-xl transition-shadow duration-300">
+    <Card className="h-full flex flex-col text-left p-2 shadow-sm hover:shadow-xl transition-shadow duration-300">
         <CardHeader className="flex-row items-start gap-4">
             <div className="bg-primary/10 text-primary min-w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Icon className="w-6 h-6" />
@@ -160,7 +160,7 @@ const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React
 );
 
 const StepCard = ({ number, title, description }: { number: string, title: string, description: string }) => (
-    <div className="flex flex-col items-center p-6 bg-background border rounded-lg">
+    <div className="flex flex-col items-center p-6 bg-background border rounded-lg shadow-sm">
         <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold mb-4">
             {number}
         </div>
@@ -170,7 +170,7 @@ const StepCard = ({ number, title, description }: { number: string, title: strin
 );
 
 const TestimonialCard = ({ quote, name, role, imageHint }: { quote: string, name: string, role: string, imageHint: string }) => (
-  <Card className="h-full flex flex-col hover:shadow-lg transition-shadow">
+  <Card className="h-full flex flex-col shadow-sm hover:shadow-lg transition-shadow">
     <CardContent className="pt-6 flex-grow">
       <p className="italic text-foreground/80">"{quote}"</p>
     </CardContent>
