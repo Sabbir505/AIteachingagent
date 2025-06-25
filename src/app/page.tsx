@@ -3,9 +3,8 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Bot, BarChart, Users, GraduationCap, HeartHandshake, Eye, ListTodo } from "lucide-react";
+import { ArrowRight, Bot, BarChart, Users, GraduationCap, HeartHandshake, Eye, ListTodo, ShieldCheck, FilePlus2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
 export default function HomePage() {
   return (
@@ -29,7 +28,7 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="block">
+          <div className="hidden lg:block">
             <Image
               src="https://placehold.co/600x500.png"
               alt="A vibrant, modern classroom with students using tablets"
@@ -52,52 +51,11 @@ export default function HomePage() {
               </p>
             </div>
 
-            <Tabs defaultValue="teacher" className="w-full">
-              <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 max-w-md mx-auto h-auto sm:h-12 gap-2 sm:gap-0">
-                <TabsTrigger value="teacher" className="h-10"><Users className="mr-2"/> For Teachers</TabsTrigger>
-                <TabsTrigger value="student" className="h-10"><GraduationCap className="mr-2"/> For Students</TabsTrigger>
-                <TabsTrigger value="parent" className="h-10"><HeartHandshake className="mr-2"/> For Parents</TabsTrigger>
-              </TabsList>
-
-              {/* Teacher Content */}
-              <TabsContent value="teacher">
-                <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
-                   <div className="lg:col-span-2 grid sm:grid-cols-2 gap-6">
-                        <FeatureCard icon={Bot} title="AI Lesson Planner" description="Generate lesson plans, quizzes, and presentations in minutes. Spend more time teaching, less time planning." />
-                        <FeatureCard icon={BarChart} title="Student Analytics" description="Get insights into class performance and identify learning gaps with our intuitive dashboard." />
-                   </div>
-                   <div className="hidden lg:flex justify-center">
-                        <Image src="https://placehold.co/400x300.png" alt="Teacher dashboard view" width={400} height={300} className="rounded-lg shadow-lg" data-ai-hint="teacher dashboard data" />
-                   </div>
-                </div>
-              </TabsContent>
-
-              {/* Student Content */}
-              <TabsContent value="student">
-                <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
-                   <div className="lg:col-span-2 grid sm:grid-cols-2 gap-6">
-                        <FeatureCard icon={ListTodo} title="Interactive Lessons" description="Engage with dynamic content, videos, and quizzes tailored to your learning style." />
-                        <FeatureCard icon={BarChart} title="Track Your Progress" description="View your grades, feedback, and performance over time to stay on top of your goals." />
-                   </div>
-                   <div className="hidden lg:flex justify-center">
-                        <Image src="https://placehold.co/400x300.png" alt="Student assignment view" width={400} height={300} className="rounded-lg shadow-lg" data-ai-hint="student learning online" />
-                   </div>
-                </div>
-              </TabsContent>
-
-              {/* Parent Content */}
-              <TabsContent value="parent">
-                <div className="mt-8 grid md:grid-cols-2 lg:grid-cols-3 gap-8 items-center">
-                   <div className="lg:col-span-2 grid sm:grid-cols-2 gap-6">
-                        <FeatureCard icon={Eye} title="Progress Overview" description="Stay informed about your child's academic performance, upcoming assignments, and grades." />
-                        <FeatureCard icon={Users} title="Teacher Communication" description="Easily communicate with teachers and stay involved in your child's educational journey." />
-                   </div>
-                   <div className="hidden lg:flex justify-center">
-                        <Image src="https://placehold.co/400x300.png" alt="Parent progress monitoring view" width={400} height={300} className="rounded-lg shadow-lg" data-ai-hint="parent child computer" />
-                   </div>
-                </div>
-              </TabsContent>
-            </Tabs>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <FeatureCard icon={Users} title="For Teachers" description="Generate lesson plans, quizzes, and presentations in minutes. Spend more time teaching, less time planning." features={["AI Lesson Planner", "Student Analytics", "AI Grading Assist"]}/>
+                <FeatureCard icon={GraduationCap} title="For Students" description="Engage with dynamic content, videos, and quizzes tailored to your learning style." features={["Interactive Lessons", "Track Your Progress", "Submit Assignments"]}/>
+                <FeatureCard icon={HeartHandshake} title="For Parents" description="Stay informed about your child's academic performance, upcoming assignments, and grades." features={["Progress Overview", "Teacher Communication", "View Assignments"]} />
+            </div>
           </div>
         </section>
 
@@ -165,16 +123,24 @@ export default function HomePage() {
 
 // Helper components for cleaner structure
 
-const FeatureCard = ({ icon: Icon, title, description }: { icon: React.ElementType, title: string, description: string }) => (
-    <Card className="text-left h-full">
+const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React.ElementType, title: string, description: string, features: string[] }) => (
+    <Card className="text-left h-full flex flex-col">
         <CardHeader>
             <div className="bg-primary/10 text-primary w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                 <Icon className="w-6 h-6" />
             </div>
             <CardTitle>{title}</CardTitle>
+             <CardDescription>{description}</CardDescription>
         </CardHeader>
-        <CardContent>
-            <p className="text-muted-foreground">{description}</p>
+        <CardContent className="flex-grow">
+            <ul className="space-y-2 text-sm text-muted-foreground">
+                {features.map(feature => (
+                    <li key={feature} className="flex items-center">
+                        <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
+                        {feature}
+                    </li>
+                ))}
+            </ul>
         </CardContent>
     </Card>
 );
@@ -210,3 +176,24 @@ const TestimonialCard = ({ quote, name, role, imageHint }: { quote: string, name
     </CardHeader>
   </Card>
 );
+
+// A new CheckCircle icon for the feature list
+const CheckCircle = (props: React.SVGProps<SVGSVGElement>) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="24"
+      height="24"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      {...props}
+    >
+      <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+      <polyline points="22 4 12 14.01 9 11.01" />
+    </svg>
+  );
+
+    
