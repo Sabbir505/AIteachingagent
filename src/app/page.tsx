@@ -137,8 +137,8 @@ export default function HomePage() {
 // Helper components for cleaner structure
 
 const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React.ElementType, title: string, description: string, features: string[] }) => (
-    <Card className="h-full flex flex-col text-left">
-        <CardHeader>
+    <Card className="h-full flex flex-col items-center text-center">
+        <CardHeader className="items-center">
             <div className="bg-primary/10 text-primary w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                 <Icon className="w-6 h-6" />
             </div>
@@ -146,7 +146,7 @@ const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React
              <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent className="flex-grow w-full">
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <ul className="space-y-2 text-sm text-muted-foreground inline-block text-left">
                 {features.map(feature => (
                     <li key={feature} className="flex items-center">
                         <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
@@ -208,3 +208,4 @@ const CheckCircle = (props: React.SVGProps<SVGSVGElement>) => (
       <polyline points="22 4 12 14.01 9 11.01" />
     </svg>
   );
+
