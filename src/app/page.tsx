@@ -124,8 +124,8 @@ export default function HomePage() {
 // Helper components for cleaner structure
 
 const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React.ElementType, title: string, description: string, features: string[] }) => (
-    <Card className="text-left h-full flex flex-col">
-        <CardHeader>
+    <Card className="h-full flex flex-col text-center">
+        <CardHeader className="items-center">
             <div className="bg-primary/10 text-primary w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                 <Icon className="w-6 h-6" />
             </div>
@@ -133,7 +133,7 @@ const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React
              <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent className="flex-grow">
-            <ul className="space-y-2 text-sm text-muted-foreground">
+            <ul className="space-y-2 text-sm text-muted-foreground text-left inline-block">
                 {features.map(feature => (
                     <li key={feature} className="flex items-center">
                         <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
