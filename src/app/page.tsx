@@ -48,7 +48,7 @@ export default function HomePage() {
               <h2 className="text-3xl font-bold font-headline">Made for Everyone in the Classroom Ecosystem</h2>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
                 <FeatureCard 
                     icon={Users} 
                     title="For Teachers" 
@@ -91,7 +91,7 @@ export default function HomePage() {
         <section className="bg-secondary/40 py-12 md:py-24">
           <div className="container">
             <h2 className="text-3xl font-bold tracking-tight text-center font-headline mb-12">Why People Love EduGenius</h2>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <TestimonialCard
                 quote="I've reclaimed my weekends! The AI lesson planner is a lifesaver. What used to take hours now takes minutes, and the quality is outstanding."
                 name="Sarah W."
