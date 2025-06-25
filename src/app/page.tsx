@@ -12,7 +12,7 @@ export default function HomePage() {
       <main className="flex-1">
         {/* Hero Section */}
         <section className="container grid lg:grid-cols-2 gap-12 items-center py-12 md:py-24">
-          <div className="flex flex-col items-start space-y-6">
+          <div className="flex flex-col items-center text-center lg:items-start lg:text-left space-y-6">
             <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl font-headline">
               Revolutionize Education with AI-Powered Multimodal Learning
             </h1>
@@ -196,3 +196,4 @@ const CheckCircle = (props: React.SVGProps<SVGSVGElement>) => (
       <polyline points="22 4 12 14.01 9 11.01" />
     </svg>
   );
+
