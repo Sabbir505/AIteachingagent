@@ -103,6 +103,33 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Live Interface Preview Section */}
+        <section className="py-12 md:py-24">
+          <div className="container text-center">
+            <div className="max-w-3xl mx-auto mb-12">
+              <h2 className="text-3xl font-bold font-headline">Fast, Responsive & Beautifully Designed</h2>
+              <p className="mt-4 text-lg text-muted-foreground">Experience a seamless and intuitive user interface built for modern education.</p>
+            </div>
+            <div className="max-w-5xl mx-auto">
+              <Card className="overflow-hidden shadow-2xl border-4 border-primary/20 bg-primary/5">
+                <CardContent className="p-2">
+                  <Image
+                    src="https://placehold.co/1200x750.png"
+                    alt="Animated preview of the EduGenius interface"
+                    width={1200}
+                    height={750}
+                    className="w-full rounded-lg"
+                    data-ai-hint="UI dashboard animation"
+                  />
+                </CardContent>
+              </Card>
+              <p className="text-sm text-muted-foreground mt-4">
+                (This is a placeholder for a live demo or video walkthrough)
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* How It Works Section */}
         <section className="py-12 md:py-24 bg-secondary/40">
             <div className="container">
