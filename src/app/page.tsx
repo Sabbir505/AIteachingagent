@@ -146,9 +146,9 @@ const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React
              <CardDescription>{description}</CardDescription>
         </CardHeader>
         <CardContent className="flex-grow w-full">
-            <ul className="space-y-2 text-sm text-muted-foreground inline-block text-left">
+            <ul className="space-y-2 text-sm text-muted-foreground">
                 {features.map(feature => (
-                    <li key={feature} className="flex items-center">
+                    <li key={feature} className="flex items-center justify-center">
                         <CheckCircle className="h-4 w-4 mr-2 text-green-500" />
                         {feature}
                     </li>
@@ -208,4 +208,3 @@ const CheckCircle = (props: React.SVGProps<SVGSVGElement>) => (
       <polyline points="22 4 12 14.01 9 11.01" />
     </svg>
   );
-
