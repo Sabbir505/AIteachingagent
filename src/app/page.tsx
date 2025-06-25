@@ -3,7 +3,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Bot, BarChart, Users, GraduationCap, HeartHandshake, Eye, ListTodo, ShieldCheck, FilePlus2 } from "lucide-react";
+import { ArrowRight, Bot, BarChart, Users, GraduationCap, HeartHandshake, Eye, ListTodo, ShieldCheck, FilePlus2, PlayCircle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 export default function HomePage() {
@@ -14,28 +14,29 @@ export default function HomePage() {
         <section className="container grid lg:grid-cols-2 gap-12 items-center py-12 md:py-24">
           <div className="flex flex-col items-start space-y-6">
             <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl font-headline">
-              Empower Every Learner, Supercharge Every Teacher.
+              Revolutionize Education with AI-Powered Multimodal Learning
             </h1>
             <p className="max-w-2xl text-lg text-foreground/80">
-              Welcome to {siteConfig.name}, the all-in-one platform that brings AI-powered lesson planning, student engagement, and parent communication together seamlessly.
+              For Teachers. For Students. For Parents. One seamless platform.
             </p>
             <div className="flex flex-col sm:flex-row gap-4">
               <Link href="/signup" className={buttonVariants({ size: "lg" })}>
-                Start for Free <ArrowRight className="ml-2 h-5 w-5" />
+                Try EduGenius
               </Link>
-              <Link href="#features" className={buttonVariants({ variant: "outline", size: "lg" })}>
-                Explore Features
+              <Link href="#" className={buttonVariants({ variant: "outline", size: "lg" })}>
+                <PlayCircle className="mr-2 h-5 w-5" />
+                Watch Demo
               </Link>
             </div>
           </div>
           <div className="lg:block">
             <Image
               src="https://placehold.co/600x500.png"
-              alt="A vibrant, modern classroom with students using tablets"
+              alt="A preview of the EduGenius dashboard interface"
               width={600}
               height={500}
               className="rounded-xl shadow-2xl"
-              data-ai-hint="modern classroom technology"
+              data-ai-hint="dashboard preview"
               priority
             />
           </div>
@@ -124,7 +125,7 @@ export default function HomePage() {
 // Helper components for cleaner structure
 
 const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React.ElementType, title: string, description: string, features: string[] }) => (
-    <Card className="h-full flex flex-col">
+    <Card className="h-full flex flex-col items-start text-left">
         <CardHeader>
             <div className="bg-primary/10 text-primary w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                 <Icon className="w-6 h-6" />
@@ -132,7 +133,7 @@ const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React
             <CardTitle>{title}</CardTitle>
              <CardDescription>{description}</CardDescription>
         </CardHeader>
-        <CardContent className="flex-grow">
+        <CardContent className="flex-grow w-full">
             <ul className="space-y-2 text-sm text-muted-foreground">
                 {features.map(feature => (
                     <li key={feature} className="flex items-center">
