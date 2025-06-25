@@ -2,7 +2,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Users, GraduationCap, HeartHandshake, PlayCircle } from "lucide-react";
+import { ArrowRight, Users, GraduationCap, HeartHandshake, PlayCircle, FileText, FileQuestion, Presentation, BookOpenCheck } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 export default function HomePage() {
@@ -71,8 +71,40 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* How It Works Section */}
+        {/* AI-Powered Features Section */}
         <section className="py-12 md:py-24">
+          <div className="container">
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <h2 className="text-3xl font-bold font-headline">Built on Google Genkit + Gemini AI</h2>
+              <p className="mt-4 text-lg text-muted-foreground">Let AI handle the heavy lifting</p>
+            </div>
+            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+              <AiFeatureCard
+                icon={FileText}
+                title="Lesson Plan Generator"
+                description="Craft detailed lesson plans in seconds, complete with objectives, activities, and materials."
+              />
+              <AiFeatureCard
+                icon={FileQuestion}
+                title="Quiz Generator"
+                description="Automatically create relevant quiz questions based on your lesson content."
+              />
+              <AiFeatureCard
+                icon={Presentation}
+                title="Presentation Outline Generator"
+                description="Generate structured slide-by-slide outlines for engaging presentations."
+              />
+              <AiFeatureCard
+                icon={BookOpenCheck}
+                title="AI Essay Grader"
+                description="Get instant, constructive feedback and a suggested grade for student essays."
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section className="py-12 md:py-24 bg-secondary/40">
             <div className="container">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl font-bold font-headline">Go from Idea to Impact in 3 Steps</h2>
@@ -88,7 +120,7 @@ export default function HomePage() {
 
 
         {/* Testimonials Section */}
-        <section className="bg-secondary/40 py-12 md:py-24">
+        <section className="py-12 md:py-24">
           <div className="container">
             <h2 className="text-3xl font-bold tracking-tight text-center font-headline mb-12">Why People Love EduGenius</h2>
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -115,7 +147,7 @@ export default function HomePage() {
         </section>
 
         {/* Final CTA Section */}
-        <section className="py-24">
+        <section className="py-24 bg-secondary/40">
           <div className="container text-center">
             <h2 className="text-4xl font-bold tracking-tight text-primary font-headline">Join the Educational Revolution.</h2>
             <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-foreground/80">
@@ -158,6 +190,19 @@ const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React
         </CardContent>
     </Card>
 );
+
+const AiFeatureCard = ({ icon: Icon, title, description }: { icon: React.ElementType, title: string, description: string }) => (
+    <Card className="text-center p-6 shadow-sm hover:shadow-lg transition-shadow">
+        <div className="flex justify-center mb-4">
+            <div className="bg-primary/10 text-primary w-16 h-16 rounded-full flex items-center justify-center">
+                <Icon className="w-8 h-8" />
+            </div>
+        </div>
+        <CardTitle className="text-lg mb-2">{title}</CardTitle>
+        <CardDescription>{description}</CardDescription>
+    </Card>
+);
+
 
 const StepCard = ({ number, title, description }: { number: string, title: string, description: string }) => (
     <div className="flex flex-col items-center p-6 bg-background border rounded-lg shadow-sm">
