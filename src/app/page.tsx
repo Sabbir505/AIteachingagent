@@ -204,13 +204,13 @@ export default function HomePage() {
         <section className="py-12 md:py-24 bg-secondary/40">
             <div className="container">
                 <div className="text-center max-w-3xl mx-auto mb-12">
-                    <h2 className="text-3xl font-bold font-headline">Go from Idea to Impact in 3 Steps</h2>
-                    <p className="mt-4 text-lg text-muted-foreground">Our intuitive process makes content creation a breeze for educators.</p>
+                    <h2 className="text-3xl font-bold font-headline">How EduGenius Works</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">A simple, powerful flow for everyone in the learning journey.</p>
                 </div>
                 <div className="grid md:grid-cols-3 gap-8 text-center">
-                    <StepCard number="1" title="Define & Generate" description="Provide your topic and grade level. Let our AI craft a detailed lesson plan or presentation outline." />
-                    <StepCard number="2" title="Customize & Assign" description="Fine-tune the generated content in our easy-to-use editor and assign it to your classes with a single click." />
-                    <StepCard number="3" title="Track & Improve" description="Monitor student engagement and performance through our analytics to inform your future teaching." />
+                    <StepCard number="1" title="Sign Up & Choose Role" description="Create an account and select your role—Teacher, Student, or Parent—to get a personalized dashboard." />
+                    <StepCard number="2" title="Access Tools & Lessons" description="Teachers use AI to create engaging content, while students dive into their interactive lessons." />
+                    <StepCard number="3" title="Track & Collaborate" description="Submit work, monitor performance, and collaborate to achieve learning goals." />
                 </div>
             </div>
         </section>
@@ -353,3 +353,4 @@ const CheckCircle = (props: React.SVGProps<SVGSVGElement>) => (
   );
 
     
+
