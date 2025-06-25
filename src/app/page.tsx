@@ -29,7 +29,7 @@ export default function HomePage() {
               </Link>
             </div>
           </div>
-          <div className="hidden lg:block">
+          <div className="block">
             <Image
               src="https://placehold.co/600x500.png"
               alt="A vibrant, modern classroom with students using tablets"
@@ -53,7 +53,7 @@ export default function HomePage() {
             </div>
 
             <Tabs defaultValue="teacher" className="w-full">
-              <TabsList className="grid w-full grid-cols-3 max-w-md mx-auto h-12">
+              <TabsList className="grid w-full grid-cols-1 sm:grid-cols-3 max-w-md mx-auto h-auto sm:h-12 gap-2 sm:gap-0">
                 <TabsTrigger value="teacher" className="h-10"><Users className="mr-2"/> For Teachers</TabsTrigger>
                 <TabsTrigger value="student" className="h-10"><GraduationCap className="mr-2"/> For Students</TabsTrigger>
                 <TabsTrigger value="parent" className="h-10"><HeartHandshake className="mr-2"/> For Parents</TabsTrigger>
