@@ -3,7 +3,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Users, GraduationCap, HeartHandshake, PlayCircle, FileText, FileQuestion, Presentation, BookOpenCheck, Type, Eye, Lightbulb, Mic, Server, ShieldCheck, Palette, BrainCircuit, ClipboardEdit } from "lucide-react";
+import { ArrowRight, Users, GraduationCap, HeartHandshake, PlayCircle, FileText, FileQuestion, Presentation, BookOpenCheck, Type, Eye, Lightbulb, Mic, Server, ShieldCheck, Palette, BrainCircuit, ClipboardEdit, MessagesSquare, Languages, Bot, Network, Rocket } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 export default function HomePage() {
@@ -49,7 +49,7 @@ export default function HomePage() {
               <h2 className="text-3xl font-bold font-headline">Made for Everyone in the Classroom Ecosystem</h2>
             </div>
 
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
                 <FeatureCard 
                     icon={Users} 
                     title="For Teachers" 
@@ -105,7 +105,7 @@ export default function HomePage() {
         </section>
 
         {/* Live Interface Preview Section */}
-        <section className="py-12 md:py-24">
+        <section className="py-12 md:py-24 bg-secondary/40">
           <div className="container text-center">
             <div className="max-w-3xl mx-auto mb-12">
               <h2 className="text-3xl font-bold font-headline">Fast, Responsive & Beautifully Designed</h2>
@@ -132,7 +132,7 @@ export default function HomePage() {
         </section>
         
         {/* Accessibility Section */}
-        <section className="py-12 md:py-24 bg-secondary/40">
+        <section className="py-12 md:py-24">
           <div className="container">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="text-3xl font-bold font-headline">Accessible by Design</h2>
@@ -164,7 +164,7 @@ export default function HomePage() {
         </section>
 
         {/* Tech Stack Section */}
-        <section className="py-12 md:py-24">
+        <section className="py-12 md:py-24 bg-secondary/40">
           <div className="container">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="text-3xl font-bold font-headline">Built on a Future-Proof Stack</h2>
@@ -201,7 +201,7 @@ export default function HomePage() {
         </section>
 
         {/* How It Works Section */}
-        <section className="py-12 md:py-24 bg-secondary/40">
+        <section className="py-12 md:py-24">
             <div className="container">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl font-bold font-headline">How EduGenius Works</h2>
@@ -217,10 +217,10 @@ export default function HomePage() {
 
 
         {/* Testimonials Section */}
-        <section className="py-12 md:py-24">
+        <section className="py-12 md:py-24 bg-secondary/40">
           <div className="container">
             <h2 className="text-3xl font-bold tracking-tight text-center font-headline mb-12">What Our Early Users Say</h2>
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <TestimonialCard
                 quote="I've reclaimed my weekends! The AI lesson planner is a lifesaver. What used to take hours now takes minutes, and the quality is outstanding."
                 name="Sarah W."
@@ -243,8 +243,48 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* Plans/Coming Soon Section */}
+        <section className="py-12 md:py-24">
+            <div className="container">
+                <div className="text-center max-w-3xl mx-auto mb-12">
+                    <h2 className="text-3xl font-bold font-headline">What's Next for EduGenius</h2>
+                    <p className="mt-4 text-lg text-muted-foreground">We're constantly innovating. Here's a sneak peek at what's coming soon.</p>
+                </div>
+                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                    <InfoCard
+                        icon={MessagesSquare}
+                        title="Real-time Messaging"
+                        description="Direct parent-teacher communication channels to stay connected."
+                    />
+                    <InfoCard
+                        icon={Languages}
+                        title="Multilingual Support"
+                        description="Content generation and UI available in multiple languages."
+                    />
+                    <InfoCard
+                        icon={Bot}
+                        title="Custom AI Tutors"
+                        description="Personalized AI tutor personalities to guide students."
+                    />
+                    <InfoCard
+                        icon={Network}
+                        title="LMS Integrations"
+                        description="Seamlessly connect with Google Classroom, Moodle, and more."
+                    />
+                </div>
+                <div className="mt-12 text-center">
+                    <Button size="lg" asChild>
+                      <Link href="#">
+                        <Rocket className="mr-2 h-5 w-5" />
+                        Join Pilot Program
+                      </Link>
+                    </Button>
+                </div>
+            </div>
+        </section>
+
         {/* Final CTA Section */}
-        <section className="py-24">
+        <section className="py-24 bg-secondary/40">
           <div className="container text-center">
             <h2 className="text-4xl font-bold tracking-tight text-primary font-headline">Join the Educational Revolution.</h2>
             <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-foreground/80">
@@ -265,7 +305,7 @@ export default function HomePage() {
 // Helper components for cleaner structure
 
 const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React.ElementType, title: string, description: string, features: string[] }) => (
-    <Card className="h-full flex flex-col text-left p-2 shadow-sm hover:shadow-xl transition-shadow duration-300">
+    <Card className="h-full flex flex-col text-left p-2 shadow hover:shadow-xl transition-shadow duration-300">
         <CardHeader className="flex-row items-start gap-4">
             <div className="bg-primary/10 text-primary min-w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Icon className="w-6 h-6" />
@@ -289,7 +329,7 @@ const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React
 );
 
 const InfoCard = ({ icon: Icon, title, description }: { icon: React.ElementType, title: string, description: string }) => (
-    <Card className="text-center p-6 shadow-sm hover:shadow-lg transition-shadow h-full">
+    <Card className="text-center p-6 shadow hover:shadow-lg transition-shadow h-full">
         <div className="flex justify-center mb-4">
             <div className="bg-primary/10 text-primary w-16 h-16 rounded-full flex items-center justify-center">
                 <Icon className="w-8 h-8" />
@@ -302,7 +342,7 @@ const InfoCard = ({ icon: Icon, title, description }: { icon: React.ElementType,
 
 
 const StepCard = ({ number, title, description }: { number: string, title: string, description: string }) => (
-    <div className="flex flex-col items-center p-6 bg-background border rounded-lg shadow-sm hover:shadow-lg transition-shadow">
+    <div className="flex flex-col items-center p-6 bg-background border rounded-lg shadow hover:shadow-lg transition-shadow">
         <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold mb-4">
             {number}
         </div>
@@ -312,7 +352,7 @@ const StepCard = ({ number, title, description }: { number: string, title: strin
 );
 
 const TestimonialCard = ({ quote, name, role, imageHint }: { quote: string, name: string, role: string, imageHint: string }) => (
-  <Card className="h-full flex flex-col shadow-sm hover:shadow-lg transition-shadow">
+  <Card className="h-full flex flex-col shadow hover:shadow-lg transition-shadow">
     <CardContent className="pt-6 flex-grow">
       <p className="italic text-foreground/80">"{quote}"</p>
     </CardContent>
@@ -353,5 +393,6 @@ const CheckCircle = (props: React.SVGProps<SVGSVGElement>) => (
   );
 
     
+
 
 
