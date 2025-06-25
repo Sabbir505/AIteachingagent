@@ -3,7 +3,7 @@ import { Button, buttonVariants } from "@/components/ui/button";
 import { siteConfig } from "@/config/site";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Users, GraduationCap, HeartHandshake, PlayCircle, FileText, FileQuestion, Presentation, BookOpenCheck, Type, Eye, Lightbulb, Mic } from "lucide-react";
+import { ArrowRight, Users, GraduationCap, HeartHandshake, PlayCircle, FileText, FileQuestion, Presentation, BookOpenCheck, Type, Eye, Lightbulb, Mic, Server, ShieldCheck, Palette, BrainCircuit, ClipboardEdit } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 
 export default function HomePage() {
@@ -80,22 +80,22 @@ export default function HomePage() {
               <p className="mt-4 text-lg text-muted-foreground">Let AI handle the heavy lifting</p>
             </div>
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <AiFeatureCard
+              <InfoCard
                 icon={FileText}
                 title="Lesson Plan Generator"
                 description="Craft detailed lesson plans in seconds, complete with objectives, activities, and materials."
               />
-              <AiFeatureCard
+              <InfoCard
                 icon={FileQuestion}
                 title="Quiz Generator"
                 description="Automatically create relevant quiz questions based on your lesson content."
               />
-              <AiFeatureCard
+              <InfoCard
                 icon={Presentation}
                 title="Presentation Outline Generator"
                 description="Generate structured slide-by-slide outlines for engaging presentations."
               />
-              <AiFeatureCard
+              <InfoCard
                 icon={BookOpenCheck}
                 title="AI Essay Grader"
                 description="Get instant, constructive feedback and a suggested grade for student essays."
@@ -139,22 +139,22 @@ export default function HomePage() {
               <p className="mt-4 text-lg text-muted-foreground">Ensuring learning is for everyone, regardless of ability.</p>
             </div>
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-              <AiFeatureCard
+              <InfoCard
                 icon={Type}
                 title="Dyslexia-Friendly Mode"
                 description="Switch to a font specifically designed to improve readability for users with dyslexia."
               />
-              <AiFeatureCard
+              <InfoCard
                 icon={Eye}
                 title="High-Contrast Theme"
                 description="Enhance on-screen visibility with a theme that meets WCAG contrast standards."
               />
-              <AiFeatureCard
+              <InfoCard
                 icon={Lightbulb}
                 title="AI Accessibility Tips"
                 description="Receive AI-generated suggestions to make your lesson plans more inclusive for all learners."
               />
-              <AiFeatureCard
+              <InfoCard
                 icon={Mic}
                 title="Speech & Text Tools"
                 description="Text-to-speech and content simplification features are coming soon to aid comprehension."
@@ -163,8 +163,45 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* How It Works Section */}
+        {/* Tech Stack Section */}
         <section className="py-12 md:py-24">
+          <div className="container">
+            <div className="text-center max-w-3xl mx-auto mb-12">
+              <h2 className="text-3xl font-bold font-headline">Built on a Future-Proof Stack</h2>
+              <p className="mt-4 text-lg text-muted-foreground">Leveraging the best of modern web and AI technology for a reliable and scalable platform.</p>
+            </div>
+            <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+               <InfoCard
+                icon={Server}
+                title="Next.js 15 & React"
+                description="Fast, server-rendered application with the latest features for a modern web experience."
+              />
+              <InfoCard
+                icon={ShieldCheck}
+                title="TypeScript & Zod"
+                description="Ensures type-safety and reliable, schema-validated data structures throughout the app."
+              />
+              <InfoCard
+                icon={Palette}
+                title="ShadCN UI & Tailwind"
+                description="A beautiful, responsive, and customizable design system for a clean user interface."
+              />
+               <InfoCard
+                icon={BrainCircuit}
+                title="Google Genkit & Gemini"
+                description="State-of-the-art generative AI for powerful content creation and assistance."
+              />
+               <InfoCard
+                icon={ClipboardEdit}
+                title="React-Hook-Form"
+                description="Performant and flexible forms for a seamless and intuitive user input experience."
+              />
+            </div>
+          </div>
+        </section>
+
+        {/* How It Works Section */}
+        <section className="py-12 md:py-24 bg-secondary/40">
             <div className="container">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl font-bold font-headline">Go from Idea to Impact in 3 Steps</h2>
@@ -180,7 +217,7 @@ export default function HomePage() {
 
 
         {/* Testimonials Section */}
-        <section className="py-12 md:py-24 bg-secondary/40">
+        <section className="py-12 md:py-24">
           <div className="container">
             <h2 className="text-3xl font-bold tracking-tight text-center font-headline mb-12">Why People Love EduGenius</h2>
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -251,8 +288,8 @@ const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React
     </Card>
 );
 
-const AiFeatureCard = ({ icon: Icon, title, description }: { icon: React.ElementType, title: string, description: string }) => (
-    <Card className="text-center p-6 shadow-sm hover:shadow-lg transition-shadow">
+const InfoCard = ({ icon: Icon, title, description }: { icon: React.ElementType, title: string, description: string }) => (
+    <Card className="text-center p-6 shadow-sm hover:shadow-lg transition-shadow h-full">
         <div className="flex justify-center mb-4">
             <div className="bg-primary/10 text-primary w-16 h-16 rounded-full flex items-center justify-center">
                 <Icon className="w-8 h-8" />
