@@ -42,20 +42,32 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Features For Everyone Section */}
+        {/* Role-Based Features Section */}
         <section id="features" className="py-12 md:py-24 bg-secondary/40">
           <div className="container">
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <h2 className="text-3xl font-bold font-headline">An Ecosystem for Education</h2>
-              <p className="mt-4 text-lg text-muted-foreground">
-                EduGenius is designed for everyone in the learning journey. Select a role to see how we can help you.
-              </p>
+              <h2 className="text-3xl font-bold font-headline">Made for Everyone in the Classroom Ecosystem</h2>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <FeatureCard icon={Users} title="For Teachers" description="Generate lesson plans, quizzes, and presentations in minutes. Spend more time teaching, less time planning." features={["AI Lesson Planner", "Student Analytics", "AI Grading Assist"]}/>
-                <FeatureCard icon={GraduationCap} title="For Students" description="Engage with dynamic content, videos, and quizzes tailored to your learning style." features={["Interactive Lessons", "Track Your Progress", "Submit Assignments"]}/>
-                <FeatureCard icon={HeartHandshake} title="For Parents" description="Stay informed about your child's academic performance, upcoming assignments, and grades." features={["Progress Overview", "Teacher Communication", "View Assignments"]} />
+                <FeatureCard 
+                    icon={Users} 
+                    title="For Teachers" 
+                    description="Lesson planning, grading, and automation to give you more time to teach." 
+                    features={["AI Lesson Planner", "Student Analytics", "AI Grading Assist"]}
+                />
+                <FeatureCard 
+                    icon={GraduationCap} 
+                    title="For Students" 
+                    description="Interactive lessons, engaging quizzes, and instant feedback to enhance learning." 
+                    features={["Interactive Lessons", "Track Your Progress", "Submit Assignments"]}
+                />
+                <FeatureCard 
+                    icon={HeartHandshake} 
+                    title="For Parents" 
+                    description="Transparent progress tracking to stay informed and involved in your child's education." 
+                    features={["Progress Overview", "Teacher Communication", "View Assignments"]} 
+                />
             </div>
           </div>
         </section>
@@ -125,7 +137,7 @@ export default function HomePage() {
 // Helper components for cleaner structure
 
 const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React.ElementType, title: string, description: string, features: string[] }) => (
-    <Card className="h-full flex flex-col items-start text-left">
+    <Card className="h-full flex flex-col text-left">
         <CardHeader>
             <div className="bg-primary/10 text-primary w-12 h-12 rounded-lg flex items-center justify-center mb-4">
                 <Icon className="w-6 h-6" />
@@ -196,4 +208,3 @@ const CheckCircle = (props: React.SVGProps<SVGSVGElement>) => (
       <polyline points="22 4 12 14.01 9 11.01" />
     </svg>
   );
-
