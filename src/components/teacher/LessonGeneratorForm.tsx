@@ -83,86 +83,34 @@ export default function LessonGeneratorForm() {
     if (!plan) return;
 
     try {
-      const doc = new jsPDF({ orientation: 'p', unit: 'pt', format: 'a4' });
-      const pageHeight = doc.internal.pageSize.height;
-      const pageWidth = doc.internal.pageSize.width;
-      const margin = 40;
-      let y = margin;
+      // Radically simplified PDF generation for debugging
+      const doc = new jsPDF();
+      
+      doc.setFontSize(22);
+      doc.text(plan.topic, 10, 20);
 
-      const addTextWithWrap = (text: string, x: number, options: { size?: number, style?: 'normal' | 'bold' } = {}) => {
-        if (!text || text.trim() === "") return;
-        const { size = 10, style = 'normal' } = options;
-        const maxWidth = pageWidth - margin - x;
-        doc.setFont('helvetica', style).setFontSize(size);
-        const lines = doc.splitTextToSize(text, maxWidth);
-        
-        // Use a more reliable way to get text height
-        const lineHeight = doc.getLineHeight() / doc.internal.scaleFactor;
-        const textBlockHeight = lines.length * lineHeight;
-
-        if (y + textBlockHeight > pageHeight - margin) {
-          doc.addPage();
-          y = margin;
-        }
-        doc.text(lines, x, y);
-        y += textBlockHeight;
-      };
-
-      addTextWithWrap(plan.topic, margin, { size: 22, style: 'bold' });
-      y += 10;
-      addTextWithWrap(`Grade: ${plan.gradeLevel} | Duration: ${plan.learningDuration || 'N/A'} | Type: ${plan.lessonType || 'N/A'}`, margin, { size: 11 });
-      y += 20;
-
-      doc.setDrawColor(200, 200, 200);
-      doc.line(margin, y, pageWidth - margin, y);
-      y += 20;
-
-      addTextWithWrap('Learning Objective', margin, { size: 14, style: 'bold' });
-      y += 5;
-      addTextWithWrap(plan.learningObjective, margin, { size: 11 });
-      y += 20;
-
-      addTextWithWrap('Lesson Breakdown', margin, { size: 14, style: 'bold' });
-      y += 5;
-      plan.lessonBreakdown.forEach(phase => {
-        addTextWithWrap(`${phase.phase} (${phase.time})`, margin, { size: 12, style: 'bold' });
-        y += 2;
-        addTextWithWrap(phase.activityDescription, margin + 15, { size: 11 });
-        y += 10;
-      });
-      y += 10;
-
-      addTextWithWrap('Required Materials', margin, { size: 14, style: 'bold' });
-      y += 5;
-      plan.materials.forEach(material => {
-        let materialText = `• ${material.name} (${material.type})`;
-        if (material.description) materialText += `: ${material.description}`;
-        addTextWithWrap(materialText, margin, { size: 11 });
-        y += 5;
-      });
-      y += 20;
-
-      addTextWithWrap('Accessibility Suggestions', margin, { size: 14, style: 'bold' });
-      y += 5;
-      plan.accessibilitySuggestions.forEach(suggestion => {
-        addTextWithWrap(`• ${suggestion}`, margin, { size: 11 });
-        y += 5;
-      });
+      doc.setFontSize(12);
+      doc.text(`Grade Level: ${plan.gradeLevel}`, 10, 30);
+      
+      doc.setFontSize(16);
+      doc.text("Objective:", 10, 50);
+      const objectiveLines = doc.splitTextToSize(plan.learningObjective, 180);
+      doc.text(objectiveLines, 10, 60);
 
       const safeFilename = plan.topic.replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') || 'lesson_plan';
       
-      // Use the library's built-in save function for reliability
+      // Use the library's built-in save function. This is the most reliable method.
       doc.save(`${safeFilename}.pdf`);
 
       toast({
-        title: "Download Started",
-        description: `Your PDF "${safeFilename}.pdf" should be downloading.`,
+        title: "Download Initiated",
+        description: `"${safeFilename}.pdf" should be downloading.`,
       });
     } catch (error) {
       console.error("Failed to generate PDF:", error);
       toast({
         title: "PDF Generation Failed",
-        description: "An unexpected error occurred. Please check the browser console for details.",
+        description: "An error occurred while creating the PDF. Please check the console.",
         variant: "destructive",
       });
     }
