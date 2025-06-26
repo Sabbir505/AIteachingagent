@@ -45,7 +45,7 @@ type LessonData = Omit<typeof mockLessonData, 'phases' | 'materials'> & {
 
 export default function EditLessonPage() {
   const params = useParams();
-  const lessonId = Array.isArray(params.lessonId) ? params.lessonId[0] : params.lessonId;
+  const lessonId = params.lessonId as string;
   const [lessonData, setLessonData] = useState<LessonData>(mockLessonData);
   const { toast } = useToast();
 

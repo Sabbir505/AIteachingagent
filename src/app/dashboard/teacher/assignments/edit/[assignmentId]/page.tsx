@@ -43,7 +43,7 @@ type AssignmentData = Omit<typeof mockAssignmentData, 'materials'> & {
 
 export default function EditAssignmentPage() {
   const params = useParams();
-  const assignmentId = Array.isArray(params.assignmentId) ? params.assignmentId[0] : params.assignmentId;
+  const assignmentId = params.assignmentId as string;
   const [assignmentData, setAssignmentData] = useState<AssignmentData>(mockAssignmentData);
   const { toast } = useToast();
 
