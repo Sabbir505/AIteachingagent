@@ -1,3 +1,4 @@
+
 "use client";
 
 import Link from "next/link";
@@ -28,7 +29,7 @@ export default function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
-      <div className="container flex h-16 items-center">
+      <div className="container flex h-16 items-center px-4">
         {/* Left: Logo */}
         <div className="mr-4 flex items-center">
           <Link href="/" className="flex items-center space-x-2">
@@ -77,7 +78,7 @@ export default function SiteHeader() {
         </nav>
 
         {/* Right: Actions */}
-        <div className="flex items-center justify-end">
+        <div className="flex items-center justify-end gap-2">
            <ThemeToggle />
             {user ? (
               <UserAccountNav user={user} />
@@ -86,7 +87,7 @@ export default function SiteHeader() {
                 href="/signup"
                 className={cn(
                   buttonVariants({ size: "sm" }),
-                  "ml-2 hidden md:inline-flex"
+                  "hidden md:inline-flex"
                 )}
               >
                 Try EduGenius
