@@ -1,4 +1,6 @@
 'use server';
+import 'server-only';
+import axios from 'axios';
 
 const UNSPLASH_API_URL = 'https://api.unsplash.com/search/photos';
 
@@ -17,29 +19,22 @@ export async function searchImages(query: string): Promise<string[]> {
   const url = `${UNSPLASH_API_URL}?query=${encodeURIComponent(query)}&per_page=1&orientation=landscape`;
 
   try {
-    const response = await fetch(url, {
+    const response = await axios.get(url, {
       headers: {
         Authorization: `Client-ID ${accessKey}`,
       },
-      // Using 'no-store' to prevent caching issues with fetch in Next.js Server Components/Actions
-      cache: 'no-store', 
     });
 
-    if (!response.ok) {
-        // Log the error response from Unsplash for better debugging
-        const errorData = await response.json().catch(() => ({ message: "Could not parse error JSON."}));
-        console.error('Error fetching from Unsplash API:', response.status, response.statusText, errorData);
-        return [`https://placehold.co/600x400.png?text=API+Error`];
-    }
-    
-    const data = await response.json();
-
-    if (data.results && data.results.length > 0) {
-      return [data.results[0].urls.regular];
+    if (response.data && response.data.results && response.data.results.length > 0) {
+      return [response.data.results[0].urls.regular];
     }
     return [`https://placehold.co/600x400.png?text=No+Image+Found`];
-  } catch (error) {
-    console.error('Error in searchImages function:', error);
+  } catch (error: any) {
+    if (axios.isAxiosError(error)) {
+      console.error('Error fetching from Unsplash API:', error.response?.status, error.response?.data);
+    } else {
+      console.error('An unexpected error occurred in searchImages:', error);
+    }
     return [`https://placehold.co/600x400.png?text=Request+Failed`];
   }
 }
