@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { useForm, type SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
+import { zodResolver } from "@radix-ui/resolvers/zod";
 import * as z from "zod";
 import { generateLessonPlan, type GenerateLessonPlanInput, type GenerateLessonPlanOutput } from "@/ai/flows/generate-lesson-plan";
 import { Button } from "@/components/ui/button";
@@ -18,6 +18,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import jsPDF from 'jspdf';
 import { cn } from "@/lib/utils";
+import Image from "next/image";
 
 const lessonPlanSchema = z.object({
   topic: z.string().min(3, "Topic must be at least 3 characters long."),
@@ -106,64 +107,55 @@ export default function LessonGeneratorForm() {
           doc.setFontSize(size);
           doc.setFont(undefined, isBold ? 'bold' : 'normal');
           const lines = doc.splitTextToSize(text, contentWidth);
+          const textHeight = doc.getTextDimensions(lines).h;
+          if (yPos + textHeight > doc.internal.pageSize.getHeight() - 30) {
+             doc.addPage();
+             yPos = 30;
+          }
           doc.text(lines, margin, yPos);
-          // A more accurate way to calculate Y position increment
-          yPos += (lines.length * size * 0.7) + 10;
+          yPos += textHeight + 10;
       }
       
       const addSectionHeader = (text: string) => {
-        yPos += 10; // Extra space before section
+        yPos += 10;
         addText(text, 14, true);
-        yPos += 5; // Space after header
+        yPos += 5;
       }
 
-      // Title
       addText(plan.topic, 20, true);
-
-      // Sub-details
       addText(`Grade: ${plan.gradeLevel} | Type: ${plan.lessonType || 'N/A'} | Duration: ${plan.learningDuration || 'N/A'}`, 10);
-      
       yPos += 20;
-
-      // Learning Objective
       addSectionHeader("🎯 Learning Objective");
       addText(plan.learningObjective, 12);
-      
-      // Lesson Breakdown
       addSectionHeader("🧩 Lesson Breakdown");
       plan.lessonBreakdown.forEach(phase => {
         addText(`${phase.phase} (${phase.time})`, 11, true);
         addText(phase.activityDescription, 11);
       });
-      
-      // Materials
       addSectionHeader("🧰 Materials");
       plan.materials.forEach(material => {
           let materialText = `[${material.type}] ${material.name}`;
           if (material.description) materialText += ` - ${material.description}`;
           addText(materialText, 11);
       });
-      
-      // Accessibility
       addSectionHeader("♿ Accessibility Suggestions");
       plan.accessibilitySuggestions.forEach(suggestion => {
         addText(`- ${suggestion}`, 11);
       });
 
-      const safeFilename = plan.topic.replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') || 'lesson_plan';
+      const safeFilename = (plan.topic.replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') || 'lesson_plan').toLowerCase();
       
-      doc.save(`${safeFilename}.pdf`);
-
       toast({
-        title: "Download Initiated",
-        description: `Your browser should now be downloading "${safeFilename}.pdf".`,
+        title: "Download Starting...",
+        description: `Your PDF "${safeFilename}.pdf" is being prepared.`,
       });
+      doc.save(`${safeFilename}.pdf`);
 
     } catch (error: any) {
       console.error("Failed to generate PDF:", error);
       toast({
         title: "PDF Generation Failed",
-        description: error.message || "An error occurred while creating the PDF. Please check the console.",
+        description: error.message || "Could not create the PDF. Please check the console.",
         variant: "destructive",
       });
     }
@@ -196,7 +188,6 @@ export default function LessonGeneratorForm() {
 
   return (
     <div className="space-y-6">
-        {/* The form is now self-contained and doesn't wrap the output */}
         <form onSubmit={handleSubmit(onSubmit)}>
             <Card>
                 <CardHeader>
@@ -319,7 +310,6 @@ export default function LessonGeneratorForm() {
             </Card>
         </form>
 
-        {/* Output Panel is now below the form */}
         <div className="space-y-6">
             {isLoading ? (
             <Card>
@@ -366,7 +356,7 @@ export default function LessonGeneratorForm() {
                     </div>
                 </CardHeader>
                 <CardContent>
-                    <Accordion type="single" collapsible defaultValue="item-1" className="w-full">
+                    <Accordion type="multiple" defaultValue={["item-1", "item-2", "item-5"]} className="w-full">
                         <AccordionItem value="item-1">
                             <AccordionTrigger className="text-lg font-semibold">🎯 Learning Objectives</AccordionTrigger>
                             <AccordionContent className="p-4 bg-background rounded-md">
@@ -429,6 +419,32 @@ export default function LessonGeneratorForm() {
                                     <li key={index}>{suggestion}</li>
                                     ))}
                                 </ul>
+                            </AccordionContent>
+                        </AccordionItem>
+                        <AccordionItem value="item-5">
+                            <AccordionTrigger className="text-lg font-semibold">🖼️ Visual Aids</AccordionTrigger>
+                            <AccordionContent className="p-4 bg-background rounded-md grid grid-cols-1 md:grid-cols-2 gap-4">
+                            {(generatedPlan.mediaSuggestions && generatedPlan.mediaSuggestions.length > 0) ? (
+                                generatedPlan.mediaSuggestions.map((media, index) => (
+                                <Card key={index}>
+                                    <CardHeader>
+                                        <CardTitle className="text-sm capitalize">{media.type}</CardTitle>
+                                        <CardDescription className="text-xs">{media.altText}</CardDescription>
+                                    </CardHeader>
+                                    <CardContent>
+                                        <Image
+                                            src={media.url}
+                                            alt={media.altText}
+                                            width={400}
+                                            height={250}
+                                            className="rounded-md object-cover w-full aspect-video"
+                                        />
+                                    </CardContent>
+                                </Card>
+                                ))
+                            ) : (
+                                <p className="text-muted-foreground col-span-full text-center">No visual aids were suggested for this lesson plan.</p>
+                            )}
                             </AccordionContent>
                         </AccordionItem>
                     </Accordion>
