@@ -61,6 +61,19 @@ export default function LessonGeneratorForm() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
+  const {
+    register,
+    handleSubmit,
+    control,
+    formState: { errors },
+  } = useForm<LessonPlanFormData>({
+    resolver: zodResolver(lessonPlanSchema),
+    defaultValues: {
+      topic: "",
+      gradeLevel: "",
+    },
+  });
+
   const handleToggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
     toast({
@@ -85,6 +98,7 @@ export default function LessonGeneratorForm() {
       let yPos = 30;
 
       const addText = (text: string, size: number, isBold = false) => {
+          if (!text) return;
           if (yPos > doc.internal.pageSize.getHeight() - 40) {
               doc.addPage();
               yPos = 30;
@@ -93,6 +107,7 @@ export default function LessonGeneratorForm() {
           doc.setFont(undefined, isBold ? 'bold' : 'normal');
           const lines = doc.splitTextToSize(text, contentWidth);
           doc.text(lines, margin, yPos);
+          // A more accurate way to calculate Y position increment
           yPos += (lines.length * size * 0.7) + 10;
       }
       
@@ -137,18 +152,11 @@ export default function LessonGeneratorForm() {
 
       const safeFilename = plan.topic.replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') || 'lesson_plan';
       
-      // Generate the data URI and create a link to trigger the download
-      const pdfDataUri = doc.output('datauristring');
-      const downloadLink = document.createElement('a');
-      downloadLink.href = pdfDataUri;
-      downloadLink.download = `${safeFilename}.pdf`;
-      document.body.appendChild(downloadLink);
-      downloadLink.click();
-      document.body.removeChild(downloadLink);
+      doc.save(`${safeFilename}.pdf`);
 
       toast({
         title: "Download Initiated",
-        description: `Preparing "${safeFilename}.pdf" for download.`,
+        description: `Your browser should now be downloading "${safeFilename}.pdf".`,
       });
 
     } catch (error: any) {
