@@ -74,7 +74,7 @@ export default function DashboardPage() {
             src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=1200&auto=format&fit=crop"
             alt="Dashboard banner showing educational setting" 
             width={800} 
-            height={150} 
+            height={50} 
             className="rounded-md object-cover w-full"
             priority 
           />
