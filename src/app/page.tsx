@@ -73,7 +73,7 @@ export default function HomePage() {
         </section>
 
         {/* AI-Powered Features Section */}
-        <section className="py-12 md:py-24">
+        <section id="ai-features" className="py-12 md:py-24">
           <div className="container">
             <div className="text-center max-w-3xl mx-auto mb-12">
               <h2 className="text-3xl font-bold font-headline">Built on Google Genkit + Gemini AI</h2>
@@ -105,7 +105,7 @@ export default function HomePage() {
         </section>
 
         {/* Live Interface Preview Section */}
-        <section className="py-12 md:py-24 bg-secondary/40">
+        <section id="live-demo" className="py-12 md:py-24 bg-secondary/40">
           <div className="container text-center">
             <div className="max-w-3xl mx-auto mb-12">
               <h2 className="text-3xl font-bold font-headline">Fast, Responsive & Beautifully Designed</h2>
@@ -201,7 +201,7 @@ export default function HomePage() {
         </section>
 
         {/* How It Works Section */}
-        <section className="py-12 md:py-24">
+        <section id="how-it-works" className="py-12 md:py-24">
             <div className="container">
                 <div className="text-center max-w-3xl mx-auto mb-12">
                     <h2 className="text-3xl font-bold font-headline">How EduGenius Works</h2>
@@ -308,7 +308,7 @@ export default function HomePage() {
 // Helper components for cleaner structure
 
 const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React.ElementType, title: string, description: string, features: string[] }) => (
-    <Card className="h-full flex flex-col text-left p-2 shadow hover:shadow-xl transition-shadow duration-300">
+    <Card className="h-full flex flex-col text-left p-2 shadow-sm hover:shadow-lg transition-shadow duration-300">
         <CardHeader className="flex-row items-start gap-4">
             <div className="bg-primary/10 text-primary min-w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Icon className="w-6 h-6" />
@@ -332,7 +332,7 @@ const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React
 );
 
 const InfoCard = ({ icon: Icon, title, description }: { icon: React.ElementType, title: string, description: string }) => (
-    <Card className="text-center p-6 shadow hover:shadow-lg transition-shadow h-full">
+    <Card className="text-center p-6 shadow-sm hover:shadow-lg transition-shadow h-full">
         <div className="flex justify-center mb-4">
             <div className="bg-primary/10 text-primary w-16 h-16 rounded-full flex items-center justify-center">
                 <Icon className="w-8 h-8" />
@@ -345,7 +345,7 @@ const InfoCard = ({ icon: Icon, title, description }: { icon: React.ElementType,
 
 
 const StepCard = ({ number, title, description }: { number: string, title: string, description: string }) => (
-    <div className="flex flex-col items-center p-6 bg-background border rounded-lg shadow hover:shadow-lg transition-shadow">
+    <div className="flex flex-col items-center p-6 bg-background border rounded-lg shadow-sm hover:shadow-lg transition-shadow">
         <div className="w-16 h-16 rounded-full bg-primary text-primary-foreground flex items-center justify-center text-2xl font-bold mb-4">
             {number}
         </div>
@@ -355,7 +355,7 @@ const StepCard = ({ number, title, description }: { number: string, title: strin
 );
 
 const TestimonialCard = ({ quote, name, role, imageHint }: { quote: string, name: string, role: string, imageHint: string }) => (
-  <Card className="h-full flex flex-col shadow hover:shadow-lg transition-shadow">
+  <Card className="h-full flex flex-col shadow-sm hover:shadow-lg transition-shadow">
     <CardContent className="pt-6 flex-grow">
       <p className="italic text-foreground/80">"{quote}"</p>
     </CardContent>
@@ -396,6 +396,7 @@ const CheckCircle = (props: React.SVGProps<SVGSVGElement>) => (
   );
 
     
+
 
 
 

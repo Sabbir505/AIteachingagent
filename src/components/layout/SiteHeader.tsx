@@ -3,12 +3,19 @@
 import Link from "next/link";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Icons } from "@/components/icons";
 import { useAuth } from "@/hooks/useAuth";
 import UserAccountNav from "@/components/auth/UserAccountNav";
 import ThemeToggle from "@/components/layout/ThemeToggle";
 import { usePathname } from "next/navigation";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
+import { ChevronDown } from "lucide-react";
 
 export default function SiteHeader() {
   const { user } = useAuth();
@@ -21,30 +28,70 @@ export default function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-40 w-full border-b bg-background">
-      <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
-        <div className="flex gap-6 md:gap-10">
+      <div className="container flex h-16 items-center">
+        {/* Left: Logo */}
+        <div className="mr-4 flex items-center">
           <Link href="/" className="flex items-center space-x-2">
             <Icons.logo className="h-6 w-6 text-primary" />
-            <span className="inline-block font-bold font-headline">{siteConfig.name}</span>
+            <span className="hidden font-bold sm:inline-block font-headline">{siteConfig.name}</span>
           </Link>
         </div>
-        <div className="flex flex-1 items-center justify-end space-x-4">
-          <nav className="flex items-center space-x-1">
-            <ThemeToggle />
+
+        {/* Middle: Navigation Links */}
+        <nav className="hidden flex-grow items-center justify-center gap-6 text-sm font-medium md:flex">
+          <DropdownMenu>
+            <DropdownMenuTrigger className="flex items-center gap-1 text-foreground/60 transition-colors hover:text-foreground/80">
+              Product <ChevronDown className="h-4 w-4" />
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem asChild>
+                <Link href="/#features" className="w-full">For Teachers</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/#features" className="w-full">For Students</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/#features" className="w-full">For Parents</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <Link
+            href="/#ai-features"
+            className="text-foreground/60 transition-colors hover:text-foreground/80"
+          >
+            AI Features
+          </Link>
+          <Link
+            href="/#live-demo"
+            className="text-foreground/60 transition-colors hover:text-foreground/80"
+          >
+            Live Demo
+          </Link>
+          <Link
+            href="/#how-it-works"
+            className="text-foreground/60 transition-colors hover:text-foreground/80"
+          >
+            About
+          </Link>
+        </nav>
+
+        {/* Right: Actions */}
+        <div className="flex items-center justify-end">
+           <ThemeToggle />
             {user ? (
               <UserAccountNav user={user} />
             ) : (
               <Link
-                href="/login"
+                href="/signup"
                 className={cn(
-                  buttonVariants({ variant: "ghost" }),
-                  "text-sm font-medium"
+                  buttonVariants({ size: "sm" }),
+                  "ml-2 hidden md:inline-flex"
                 )}
               >
-                Login
+                Try EduGenius
               </Link>
             )}
-          </nav>
         </div>
       </div>
     </header>
