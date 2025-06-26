@@ -62,7 +62,7 @@ const AIPromptOutputSchema = z.object({
   mediaSuggestions: z.array(AIPromptMediaSuggestionSchema).optional().describe('A list of suggested media items. Generate 1-2 images and optionally one chart if the topic is data-heavy.')
 });
 
-export const GenerateLessonPlanOutputSchema = z.object({
+const GenerateLessonPlanOutputSchema = z.object({
   topic: z.string(),
   gradeLevel: z.string(),
   lessonType: z.string().optional(),
