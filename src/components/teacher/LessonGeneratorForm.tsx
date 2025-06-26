@@ -61,16 +61,6 @@ export default function LessonGeneratorForm() {
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-    control,
-  } = useForm<LessonPlanFormData>({
-    resolver: zodResolver(lessonPlanSchema),
-  });
-
   const handleToggleBookmark = () => {
     setIsBookmarked(!isBookmarked);
     toast({
@@ -83,34 +73,89 @@ export default function LessonGeneratorForm() {
     if (!plan) return;
 
     try {
-      // Radically simplified PDF generation for debugging
-      const doc = new jsPDF();
+      const doc = new jsPDF({
+        orientation: 'p',
+        unit: 'px',
+        format: 'a4'
+      });
       
-      doc.setFontSize(22);
-      doc.text(plan.topic, 10, 20);
+      const pageWidth = doc.internal.pageSize.getWidth();
+      const margin = 20;
+      const contentWidth = pageWidth - (margin * 2);
+      let yPos = 30;
 
-      doc.setFontSize(12);
-      doc.text(`Grade Level: ${plan.gradeLevel}`, 10, 30);
+      const addText = (text: string, size: number, isBold = false) => {
+          if (yPos > doc.internal.pageSize.getHeight() - 40) {
+              doc.addPage();
+              yPos = 30;
+          }
+          doc.setFontSize(size);
+          doc.setFont(undefined, isBold ? 'bold' : 'normal');
+          const lines = doc.splitTextToSize(text, contentWidth);
+          doc.text(lines, margin, yPos);
+          yPos += (lines.length * size * 0.7) + 10;
+      }
       
-      doc.setFontSize(16);
-      doc.text("Objective:", 10, 50);
-      const objectiveLines = doc.splitTextToSize(plan.learningObjective, 180);
-      doc.text(objectiveLines, 10, 60);
+      const addSectionHeader = (text: string) => {
+        yPos += 10; // Extra space before section
+        addText(text, 14, true);
+        yPos += 5; // Space after header
+      }
+
+      // Title
+      addText(plan.topic, 20, true);
+
+      // Sub-details
+      addText(`Grade: ${plan.gradeLevel} | Type: ${plan.lessonType || 'N/A'} | Duration: ${plan.learningDuration || 'N/A'}`, 10);
+      
+      yPos += 20;
+
+      // Learning Objective
+      addSectionHeader("🎯 Learning Objective");
+      addText(plan.learningObjective, 12);
+      
+      // Lesson Breakdown
+      addSectionHeader("🧩 Lesson Breakdown");
+      plan.lessonBreakdown.forEach(phase => {
+        addText(`${phase.phase} (${phase.time})`, 11, true);
+        addText(phase.activityDescription, 11);
+      });
+      
+      // Materials
+      addSectionHeader("🧰 Materials");
+      plan.materials.forEach(material => {
+          let materialText = `[${material.type}] ${material.name}`;
+          if (material.description) materialText += ` - ${material.description}`;
+          addText(materialText, 11);
+      });
+      
+      // Accessibility
+      addSectionHeader("♿ Accessibility Suggestions");
+      plan.accessibilitySuggestions.forEach(suggestion => {
+        addText(`- ${suggestion}`, 11);
+      });
 
       const safeFilename = plan.topic.replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') || 'lesson_plan';
       
-      // Use the library's built-in save function. This is the most reliable method.
-      doc.save(`${safeFilename}.pdf`);
+      // Generate the data URI and create a link to trigger the download
+      const pdfDataUri = doc.output('datauristring');
+      const downloadLink = document.createElement('a');
+      downloadLink.href = pdfDataUri;
+      downloadLink.download = `${safeFilename}.pdf`;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+      document.body.removeChild(downloadLink);
 
       toast({
         title: "Download Initiated",
-        description: `"${safeFilename}.pdf" should be downloading.`,
+        description: `Preparing "${safeFilename}.pdf" for download.`,
       });
-    } catch (error) {
+
+    } catch (error: any) {
       console.error("Failed to generate PDF:", error);
       toast({
         title: "PDF Generation Failed",
-        description: "An error occurred while creating the PDF. Please check the console.",
+        description: error.message || "An error occurred while creating the PDF. Please check the console.",
         variant: "destructive",
       });
     }
