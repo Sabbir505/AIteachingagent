@@ -95,7 +95,11 @@ export default function LessonGeneratorForm() {
         const maxWidth = pageWidth - margin - x;
         doc.setFont('helvetica', style).setFontSize(size);
         const lines = doc.splitTextToSize(text, maxWidth);
-        const textBlockHeight = doc.getTextDimensions(lines).h;
+        
+        // Use a more reliable way to get text height
+        const lineHeight = doc.getLineHeight() / doc.internal.scaleFactor;
+        const textBlockHeight = lines.length * lineHeight;
+
         if (y + textBlockHeight > pageHeight - margin) {
           doc.addPage();
           y = margin;
@@ -146,19 +150,13 @@ export default function LessonGeneratorForm() {
       });
 
       const safeFilename = plan.topic.replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') || 'lesson_plan';
-      const pdfDataUri = doc.output('datauristring');
       
-      const link = document.createElement('a');
-      link.href = pdfDataUri;
-      link.download = `${safeFilename}.pdf`;
-      
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+      // Use the library's built-in save function for reliability
+      doc.save(`${safeFilename}.pdf`);
 
       toast({
-        title: "Download Starting",
-        description: `Your PDF "${safeFilename}.pdf" is being prepared.`,
+        title: "Download Started",
+        description: `Your PDF "${safeFilename}.pdf" should be downloading.`,
       });
     } catch (error) {
       console.error("Failed to generate PDF:", error);
@@ -298,7 +296,7 @@ export default function LessonGeneratorForm() {
                             name="learningDuration"
                             control={control}
                             render={({ field }) => (
-                                <div className="grid grid-cols-2 gap-2 mt-1">
+                                <div className="grid grid-cols-2 md:grid-cols-4 gap-2 mt-1">
                                     {learningDurationOptions.map(option => (
                                         <Button key={option.value} type="button" variant={field.value === option.value ? "default" : "outline"} onClick={() => field.onChange(option.value)} disabled={isLoading}>
                                             <Clock className="mr-2 h-4 w-4"/> {option.label}
