@@ -7,7 +7,7 @@ const QUICKCHART_API_URL = 'https://quickchart.io/chart';
  * @param chartConfig The chart configuration object.
  * @returns A URL string for the generated chart image.
  */
-export function createChartUrl(chartConfig: object): string {
+export async function createChartUrl(chartConfig: object): Promise<string> {
   const configString = JSON.stringify(chartConfig);
   return `${QUICKCHART_API_URL}?c=${encodeURIComponent(configString)}`;
 }

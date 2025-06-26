@@ -136,7 +136,7 @@ const generateLessonPlanFlow = ai.defineFlow(
             } else if (suggestion.type === 'chart') {
                 try {
                     const chartConfig = JSON.parse(suggestion.query);
-                    url = createChartUrl(chartConfig);
+                    url = await createChartUrl(chartConfig);
                 } catch (e) {
                     console.error('Failed to parse chart JSON:', e);
                     // Use a placeholder if JSON is invalid
