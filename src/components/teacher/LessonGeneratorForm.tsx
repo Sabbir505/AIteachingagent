@@ -145,12 +145,20 @@ export default function LessonGeneratorForm() {
         y += 5;
       });
 
-      const safeFilename = plan.topic.replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_');
-      doc.save(`${safeFilename || 'lesson_plan'}.pdf`);
+      const safeFilename = plan.topic.replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') || 'lesson_plan';
+      const pdfDataUri = doc.output('datauristring');
+      
+      const link = document.createElement('a');
+      link.href = pdfDataUri;
+      link.download = `${safeFilename}.pdf`;
+      
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
 
       toast({
-        title: "Download Complete",
-        description: `"${safeFilename || 'lesson_plan'}.pdf" has been saved.`,
+        title: "Download Starting",
+        description: `Your PDF "${safeFilename}.pdf" is being prepared.`,
       });
     } catch (error) {
       console.error("Failed to generate PDF:", error);
