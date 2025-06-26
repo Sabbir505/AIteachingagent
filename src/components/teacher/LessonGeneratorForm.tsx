@@ -82,77 +82,75 @@ export default function LessonGeneratorForm() {
   const handleDownloadPdf = (plan: GenerateLessonPlanOutput | null) => {
     if (!plan) return;
 
-    const doc = new jsPDF();
-    let y = 15; // vertical position
+    try {
+        const doc = new jsPDF();
+        const pageHeight = doc.internal.pageSize.height;
+        const margin = 15;
+        let y = margin;
 
-    const addWrappedText = (text: string, x: number, yPos: number, options?: any) => {
-        const lines = doc.splitTextToSize(text, options?.maxWidth || 180);
-        if (yPos + (lines.length * 7) > 280) { // check for page break before drawing text
-            doc.addPage();
-            yPos = 15;
-        }
-        doc.text(lines, x, yPos);
-        return yPos + (lines.length * 7); // Increment y by number of lines * line height
-    };
+        const addTextWithWrap = (text: string, x: number, options: { size?: number, style?: 'normal' | 'bold' } = {}) => {
+            const { size = 12, style = 'normal' } = options;
+            const maxWidth = doc.internal.pageSize.width - margin - x;
+            
+            doc.setFont('helvetica', style).setFontSize(size);
+            
+            const lines = doc.splitTextToSize(text, maxWidth);
+            const textBlockHeight = doc.getTextDimensions(lines).h;
 
-    doc.setFontSize(18);
-    doc.setFont('helvetica', 'bold');
-    y = addWrappedText(plan.topic, 10, y);
-    y += 5;
+            if (y + textBlockHeight > pageHeight - margin) {
+                doc.addPage();
+                y = margin;
+            }
+            
+            doc.text(lines, x, y);
+            y += textBlockHeight + 2; // Move y down, adding a small buffer
+        };
 
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'normal');
-    y = addWrappedText(`Grade: ${plan.gradeLevel} | Duration: ${plan.learningDuration || 'N/A'} | Type: ${plan.lessonType || 'N/A'}`, 10, y);
-    y += 10;
+        addTextWithWrap(plan.topic, margin, { size: 20, style: 'bold' });
+        y += 3;
+        addTextWithWrap(`Grade: ${plan.gradeLevel} | Duration: ${plan.learningDuration || 'N/A'} | Type: ${plan.lessonType || 'N/A'}`, margin, { size: 12 });
+        y += 10;
+        
+        addTextWithWrap('Learning Objective', margin, { size: 14, style: 'bold' });
+        addTextWithWrap(plan.learningObjective, margin + 5, { size: 12 });
+        y += 10;
 
-    doc.setFontSize(14);
-    doc.setFont('helvetica', 'bold');
-    y = addWrappedText('Learning Objectives', 10, y);
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'normal');
-    y = addWrappedText(plan.learningObjective, 15, y);
-    y += 10;
-    
-    doc.setFontSize(14);
-    doc.setFont('helvetica', 'bold');
-    y = addWrappedText('Lesson Breakdown', 10, y);
-    plan.lessonBreakdown.forEach(phase => {
-        doc.setFontSize(12);
-        doc.setFont('helvetica', 'bold');
-        y = addWrappedText(`${phase.phase} (${phase.time})`, 15, y);
-        doc.setFont('helvetica', 'normal');
-        y = addWrappedText(phase.activityDescription, 20, y, { maxWidth: 170 });
-        y += 5;
-    });
-    y+= 5;
+        addTextWithWrap('Lesson Breakdown', margin, { size: 14, style: 'bold' });
+        plan.lessonBreakdown.forEach(phase => {
+            addTextWithWrap(`${phase.phase} (${phase.time})`, margin + 5, { size: 12, style: 'bold' });
+            addTextWithWrap(phase.activityDescription, margin + 10, { size: 12 });
+            y += 3;
+        });
+        y += 7;
 
-    if (y > 270) { doc.addPage(); y = 15; }
-    doc.setFontSize(14);
-    doc.setFont('helvetica', 'bold');
-    y = addWrappedText('Required Materials', 10, y);
-    plan.materials.forEach(material => {
-        doc.setFontSize(12);
-        doc.setFont('helvetica', 'normal');
-        y = addWrappedText(`- ${material.name} (${material.type})`, 15, y);
-        if(material.description) y = addWrappedText(material.description, 20, y, { maxWidth: 170 });
-    });
-    y += 10;
-    
-    if (y > 270) { doc.addPage(); y = 15; }
-    doc.setFontSize(14);
-    doc.setFont('helvetica', 'bold');
-    y = addWrappedText('Accessibility Suggestions', 10, y);
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'normal');
-    plan.accessibilitySuggestions.forEach(suggestion => {
-        y = addWrappedText(`- ${suggestion}`, 15, y);
-    });
+        addTextWithWrap('Required Materials', margin, { size: 14, style: 'bold' });
+        plan.materials.forEach(material => {
+            let materialText = `- ${material.name} (${material.type})`;
+            if (material.description) materialText += `: ${material.description}`;
+            addTextWithWrap(materialText, margin + 5, { size: 12 });
+        });
+        y += 10;
 
-    doc.save(`${plan.topic.replace(/ /g, '_')}_Lesson_Plan.pdf`);
-    toast({
-        title: "Download Started",
-        description: "Your lesson plan PDF is being downloaded.",
-    });
+        addTextWithWrap('Accessibility Suggestions', margin, { size: 14, style: 'bold' });
+        plan.accessibilitySuggestions.forEach(suggestion => {
+            addTextWithWrap(`- ${suggestion}`, margin + 5, { size: 12 });
+        });
+        
+        doc.save(`${plan.topic.replace(/ /g, '_')}_Lesson_Plan.pdf`);
+
+        toast({
+            title: "Download Started",
+            description: "Your lesson plan PDF is being generated.",
+        });
+
+    } catch (error) {
+        console.error("Failed to generate PDF:", error);
+        toast({
+            title: "PDF Generation Failed",
+            description: "An unexpected error occurred while creating the PDF.",
+            variant: "destructive",
+        });
+    }
   };
 
   const onSubmit: SubmitHandler<LessonPlanFormData> = async (data) => {
