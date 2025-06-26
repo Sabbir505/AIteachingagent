@@ -83,75 +83,85 @@ export default function LessonGeneratorForm() {
     if (!plan) return;
 
     try {
-        const doc = new jsPDF();
-        const pageHeight = doc.internal.pageSize.height;
-        const margin = 15;
-        let y = margin;
+      const doc = new jsPDF({ orientation: 'p', unit: 'pt', format: 'a4' });
+      const pageHeight = doc.internal.pageSize.height;
+      const pageWidth = doc.internal.pageSize.width;
+      const margin = 40;
+      let y = margin;
 
-        const addTextWithWrap = (text: string, x: number, options: { size?: number, style?: 'normal' | 'bold' } = {}) => {
-            const { size = 12, style = 'normal' } = options;
-            const maxWidth = doc.internal.pageSize.width - margin - x;
-            
-            doc.setFont('helvetica', style).setFontSize(size);
-            
-            const lines = doc.splitTextToSize(text, maxWidth);
-            const textBlockHeight = doc.getTextDimensions(lines).h;
+      const addTextWithWrap = (text: string, x: number, options: { size?: number, style?: 'normal' | 'bold' } = {}) => {
+        if (!text || text.trim() === "") return;
+        const { size = 10, style = 'normal' } = options;
+        const maxWidth = pageWidth - margin - x;
+        doc.setFont('helvetica', style).setFontSize(size);
+        const lines = doc.splitTextToSize(text, maxWidth);
+        const textBlockHeight = doc.getTextDimensions(lines).h;
+        if (y + textBlockHeight > pageHeight - margin) {
+          doc.addPage();
+          y = margin;
+        }
+        doc.text(lines, x, y);
+        y += textBlockHeight;
+      };
 
-            if (y + textBlockHeight > pageHeight - margin) {
-                doc.addPage();
-                y = margin;
-            }
-            
-            doc.text(lines, x, y);
-            y += textBlockHeight + 2; // Move y down, adding a small buffer
-        };
+      addTextWithWrap(plan.topic, margin, { size: 22, style: 'bold' });
+      y += 10;
+      addTextWithWrap(`Grade: ${plan.gradeLevel} | Duration: ${plan.learningDuration || 'N/A'} | Type: ${plan.lessonType || 'N/A'}`, margin, { size: 11 });
+      y += 20;
 
-        addTextWithWrap(plan.topic, margin, { size: 20, style: 'bold' });
-        y += 3;
-        addTextWithWrap(`Grade: ${plan.gradeLevel} | Duration: ${plan.learningDuration || 'N/A'} | Type: ${plan.lessonType || 'N/A'}`, margin, { size: 12 });
+      doc.setDrawColor(200, 200, 200);
+      doc.line(margin, y, pageWidth - margin, y);
+      y += 20;
+
+      addTextWithWrap('Learning Objective', margin, { size: 14, style: 'bold' });
+      y += 5;
+      addTextWithWrap(plan.learningObjective, margin, { size: 11 });
+      y += 20;
+
+      addTextWithWrap('Lesson Breakdown', margin, { size: 14, style: 'bold' });
+      y += 5;
+      plan.lessonBreakdown.forEach(phase => {
+        addTextWithWrap(`${phase.phase} (${phase.time})`, margin, { size: 12, style: 'bold' });
+        y += 2;
+        addTextWithWrap(phase.activityDescription, margin + 15, { size: 11 });
         y += 10;
-        
-        addTextWithWrap('Learning Objective', margin, { size: 14, style: 'bold' });
-        addTextWithWrap(plan.learningObjective, margin + 5, { size: 12 });
-        y += 10;
+      });
+      y += 10;
 
-        addTextWithWrap('Lesson Breakdown', margin, { size: 14, style: 'bold' });
-        plan.lessonBreakdown.forEach(phase => {
-            addTextWithWrap(`${phase.phase} (${phase.time})`, margin + 5, { size: 12, style: 'bold' });
-            addTextWithWrap(phase.activityDescription, margin + 10, { size: 12 });
-            y += 3;
-        });
-        y += 7;
+      addTextWithWrap('Required Materials', margin, { size: 14, style: 'bold' });
+      y += 5;
+      plan.materials.forEach(material => {
+        let materialText = `• ${material.name} (${material.type})`;
+        if (material.description) materialText += `: ${material.description}`;
+        addTextWithWrap(materialText, margin, { size: 11 });
+        y += 5;
+      });
+      y += 20;
 
-        addTextWithWrap('Required Materials', margin, { size: 14, style: 'bold' });
-        plan.materials.forEach(material => {
-            let materialText = `- ${material.name} (${material.type})`;
-            if (material.description) materialText += `: ${material.description}`;
-            addTextWithWrap(materialText, margin + 5, { size: 12 });
-        });
-        y += 10;
+      addTextWithWrap('Accessibility Suggestions', margin, { size: 14, style: 'bold' });
+      y += 5;
+      plan.accessibilitySuggestions.forEach(suggestion => {
+        addTextWithWrap(`• ${suggestion}`, margin, { size: 11 });
+        y += 5;
+      });
 
-        addTextWithWrap('Accessibility Suggestions', margin, { size: 14, style: 'bold' });
-        plan.accessibilitySuggestions.forEach(suggestion => {
-            addTextWithWrap(`- ${suggestion}`, margin + 5, { size: 12 });
-        });
-        
-        doc.save(`${plan.topic.replace(/ /g, '_')}_Lesson_Plan.pdf`);
+      const safeFilename = plan.topic.replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_');
+      doc.save(`${safeFilename || 'lesson_plan'}.pdf`);
 
-        toast({
-            title: "Download Started",
-            description: "Your lesson plan PDF is being generated.",
-        });
-
+      toast({
+        title: "Download Complete",
+        description: `"${safeFilename || 'lesson_plan'}.pdf" has been saved.`,
+      });
     } catch (error) {
-        console.error("Failed to generate PDF:", error);
-        toast({
-            title: "PDF Generation Failed",
-            description: "An unexpected error occurred while creating the PDF.",
-            variant: "destructive",
-        });
+      console.error("Failed to generate PDF:", error);
+      toast({
+        title: "PDF Generation Failed",
+        description: "An unexpected error occurred. Please check the browser console for details.",
+        variant: "destructive",
+      });
     }
   };
+
 
   const onSubmit: SubmitHandler<LessonPlanFormData> = async (data) => {
     setIsLoading(true);
