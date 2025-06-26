@@ -16,6 +16,8 @@ import { Select, SelectContent, SelectGroup, SelectItem, SelectLabel, SelectTrig
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import jsPDF from 'jspdf';
+import { cn } from "@/lib/utils";
 
 const lessonPlanSchema = z.object({
   topic: z.string().min(3, "Topic must be at least 3 characters long."),
@@ -55,6 +57,7 @@ const materialTypeIcons: { [key: string]: React.ElementType } = {
 export default function LessonGeneratorForm() {
   const [isLoading, setIsLoading] = useState(false);
   const [generatedPlan, setGeneratedPlan] = useState<GenerateLessonPlanOutput | null>(null);
+  const [isBookmarked, setIsBookmarked] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const { toast } = useToast();
 
@@ -68,9 +71,94 @@ export default function LessonGeneratorForm() {
     resolver: zodResolver(lessonPlanSchema),
   });
 
+  const handleToggleBookmark = () => {
+    setIsBookmarked(!isBookmarked);
+    toast({
+        title: !isBookmarked ? "Lesson Plan Bookmarked!" : "Bookmark Removed",
+        description: "You can find your bookmarked plans in your library (feature coming soon).",
+    });
+  };
+
+  const handleDownloadPdf = (plan: GenerateLessonPlanOutput | null) => {
+    if (!plan) return;
+
+    const doc = new jsPDF();
+    let y = 15; // vertical position
+
+    const addWrappedText = (text: string, x: number, yPos: number, options?: any) => {
+        const lines = doc.splitTextToSize(text, options?.maxWidth || 180);
+        if (yPos + (lines.length * 7) > 280) { // check for page break before drawing text
+            doc.addPage();
+            yPos = 15;
+        }
+        doc.text(lines, x, yPos);
+        return yPos + (lines.length * 7); // Increment y by number of lines * line height
+    };
+
+    doc.setFontSize(18);
+    doc.setFont('helvetica', 'bold');
+    y = addWrappedText(plan.topic, 10, y);
+    y += 5;
+
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    y = addWrappedText(`Grade: ${plan.gradeLevel} | Duration: ${plan.learningDuration || 'N/A'} | Type: ${plan.lessonType || 'N/A'}`, 10, y);
+    y += 10;
+
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    y = addWrappedText('Learning Objectives', 10, y);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    y = addWrappedText(plan.learningObjective, 15, y);
+    y += 10;
+    
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    y = addWrappedText('Lesson Breakdown', 10, y);
+    plan.lessonBreakdown.forEach(phase => {
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'bold');
+        y = addWrappedText(`${phase.phase} (${phase.time})`, 15, y);
+        doc.setFont('helvetica', 'normal');
+        y = addWrappedText(phase.activityDescription, 20, y, { maxWidth: 170 });
+        y += 5;
+    });
+    y+= 5;
+
+    if (y > 270) { doc.addPage(); y = 15; }
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    y = addWrappedText('Required Materials', 10, y);
+    plan.materials.forEach(material => {
+        doc.setFontSize(12);
+        doc.setFont('helvetica', 'normal');
+        y = addWrappedText(`- ${material.name} (${material.type})`, 15, y);
+        if(material.description) y = addWrappedText(material.description, 20, y, { maxWidth: 170 });
+    });
+    y += 10;
+    
+    if (y > 270) { doc.addPage(); y = 15; }
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'bold');
+    y = addWrappedText('Accessibility Suggestions', 10, y);
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    plan.accessibilitySuggestions.forEach(suggestion => {
+        y = addWrappedText(`- ${suggestion}`, 15, y);
+    });
+
+    doc.save(`${plan.topic.replace(/ /g, '_')}_Lesson_Plan.pdf`);
+    toast({
+        title: "Download Started",
+        description: "Your lesson plan PDF is being downloaded.",
+    });
+  };
+
   const onSubmit: SubmitHandler<LessonPlanFormData> = async (data) => {
     setIsLoading(true);
     setGeneratedPlan(null);
+    setIsBookmarked(false);
     setError(null);
     try {
       const result = await generateLessonPlan(data as GenerateLessonPlanInput);
@@ -245,13 +333,17 @@ export default function LessonGeneratorForm() {
                         <TooltipProvider>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button variant="outline" size="icon" onClick={() => toast({ title: "Bookmarked! (Placeholder)"})}><Bookmark className="h-4 w-4" /></Button>
+                                    <Button variant="outline" size="icon" onClick={handleToggleBookmark}>
+                                        <Bookmark className={cn("h-4 w-4", isBookmarked && "fill-primary text-primary")} />
+                                    </Button>
                                 </TooltipTrigger>
-                                <TooltipContent><p>Bookmark Plan</p></TooltipContent>
+                                <TooltipContent><p>{isBookmarked ? "Remove Bookmark" : "Bookmark Plan"}</p></TooltipContent>
                             </Tooltip>
                             <Tooltip>
                                 <TooltipTrigger asChild>
-                                    <Button variant="outline" size="icon" onClick={() => toast({ title: "Downloaded! (Placeholder)"})}><Download className="h-4 w-4" /></Button>
+                                    <Button variant="outline" size="icon" onClick={() => handleDownloadPdf(generatedPlan)}>
+                                        <Download className="h-4 w-4" />
+                                    </Button>
                                 </TooltipTrigger>
                                 <TooltipContent><p>Download as PDF</p></TooltipContent>
                             </Tooltip>
