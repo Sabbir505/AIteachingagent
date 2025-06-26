@@ -3,7 +3,7 @@
 
 import { useState } from "react";
 import { useForm, type SubmitHandler, Controller } from "react-hook-form";
-import { zodResolver } from "@radix-ui/resolvers/zod";
+import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { generateLessonPlan, type GenerateLessonPlanInput, type GenerateLessonPlanOutput } from "@/ai/flows/generate-lesson-plan";
 import { Button } from "@/components/ui/button";
@@ -145,11 +145,12 @@ export default function LessonGeneratorForm() {
 
       const safeFilename = (plan.topic.replace(/[^\w\s-]/g, '').trim().replace(/\s+/g, '_') || 'lesson_plan').toLowerCase();
       
+      doc.save(`${safeFilename}.pdf`);
+      
       toast({
         title: "Download Starting...",
         description: `Your PDF "${safeFilename}.pdf" is being prepared.`,
       });
-      doc.save(`${safeFilename}.pdf`);
 
     } catch (error: any) {
       console.error("Failed to generate PDF:", error);
