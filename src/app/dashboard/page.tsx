@@ -73,9 +73,9 @@ export default function DashboardPage() {
           <Image 
             src="https://images.unsplash.com/photo-1546410531-bb4caa6b424d?q=80&w=1200&auto=format&fit=crop"
             alt="Dashboard banner showing educational setting" 
-            width={1200} 
-            height={400} 
-            className="rounded-md object-cover"
+            width={800} 
+            height={250} 
+            className="rounded-md object-cover w-full"
             priority 
           />
         </CardContent>
