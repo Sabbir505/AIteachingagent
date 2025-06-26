@@ -1,4 +1,7 @@
 import type { Metadata } from 'next';
+import { config } from 'dotenv';
+config();
+
 import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
