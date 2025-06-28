@@ -36,7 +36,7 @@ export default function HomePage() {
               width={600}
               height={500}
               className="rounded-xl shadow-2xl"
-              data-ai-hint="dashboard preview"
+              data-ai-hint="teacher student tablet"
               priority
             />
           </div>
@@ -402,5 +402,7 @@ const CheckCircle = (props: React.SVGProps<SVGSVGElement>) => (
 
 
 
+
+    
 
     
