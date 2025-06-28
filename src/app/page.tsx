@@ -11,7 +11,7 @@ export default function HomePage() {
     <div className="flex flex-col min-h-screen">
       <main className="flex-1">
         {/* Hero Section */}
-        <section className="container grid lg:grid-cols-2 gap-12 items-center py-12 md:py-24">
+        <section className="container grid lg:grid-cols-2 gap-12 items-center py-16 sm:py-20 md:py-24 lg:py-28">
           <div className="flex flex-col items-center text-center lg:items-start lg:text-left space-y-6 lg:pl-8">
             <h1 className="text-4xl font-bold tracking-tight text-primary sm:text-5xl md:text-6xl font-headline">
               Revolutionize Education with AI-Powered Multimodal Learning
@@ -43,10 +43,10 @@ export default function HomePage() {
         </section>
 
         {/* Role-Based Features Section */}
-        <section id="features" className="py-12 md:py-24 bg-secondary/40">
+        <section id="features" className="py-16 sm:py-20 md:py-24 bg-secondary/40">
           <div className="container">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <h2 className="text-3xl font-bold font-headline">Made for Everyone in the Classroom Ecosystem</h2>
+            <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold font-headline">Made for Everyone in the Classroom Ecosystem</h2>
             </div>
 
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
@@ -73,13 +73,13 @@ export default function HomePage() {
         </section>
 
         {/* AI-Powered Features Section */}
-        <section id="ai-features" className="py-12 md:py-24">
+        <section id="ai-features" className="py-16 sm:py-20 md:py-24">
           <div className="container">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <h2 className="text-3xl font-bold font-headline">Built on Google Genkit + Gemini AI</h2>
+            <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold font-headline">Built on Google Genkit + Gemini AI</h2>
               <p className="mt-4 text-lg text-muted-foreground">Let AI handle the heavy lifting</p>
             </div>
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               <InfoCard
                 icon={FileText}
                 title="Lesson Plan Generator"
@@ -105,10 +105,10 @@ export default function HomePage() {
         </section>
 
         {/* Live Interface Preview Section */}
-        <section id="live-demo" className="py-12 md:py-24 bg-secondary/40">
+        <section id="live-demo" className="py-16 sm:py-20 md:py-24 bg-secondary/40">
           <div className="container text-center">
-            <div className="max-w-3xl mx-auto mb-12">
-              <h2 className="text-3xl font-bold font-headline">Fast, Responsive & Beautifully Designed</h2>
+            <div className="max-w-3xl mx-auto mb-12 md:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold font-headline">Fast, Responsive & Beautifully Designed</h2>
               <p className="mt-4 text-lg text-muted-foreground">Experience a seamless and intuitive user interface built for modern education.</p>
             </div>
             <div className="max-w-5xl mx-auto">
@@ -132,13 +132,13 @@ export default function HomePage() {
         </section>
         
         {/* Accessibility Section */}
-        <section className="py-12 md:py-24">
+        <section className="py-16 sm:py-20 md:py-24">
           <div className="container">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <h2 className="text-3xl font-bold font-headline">Accessible by Design</h2>
+            <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold font-headline">Accessible by Design</h2>
               <p className="mt-4 text-lg text-muted-foreground">Ensuring learning is for everyone, regardless of ability.</p>
             </div>
-            <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
               <InfoCard
                 icon={Type}
                 title="Dyslexia-Friendly Mode"
@@ -164,10 +164,10 @@ export default function HomePage() {
         </section>
 
         {/* Tech Stack Section */}
-        <section className="py-12 md:py-24 bg-secondary/40">
+        <section className="py-16 sm:py-20 md:py-24 bg-secondary/40">
           <div className="container">
-            <div className="text-center max-w-3xl mx-auto mb-12">
-              <h2 className="text-3xl font-bold font-headline">Built on a Future-Proof Stack</h2>
+            <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+              <h2 className="text-3xl sm:text-4xl font-bold font-headline">Built on a Future-Proof Stack</h2>
               <p className="mt-4 text-lg text-muted-foreground">Leveraging the best of modern web and AI technology for a reliable and scalable platform.</p>
             </div>
             <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -201,10 +201,10 @@ export default function HomePage() {
         </section>
 
         {/* How It Works Section */}
-        <section id="how-it-works" className="py-12 md:py-24">
+        <section id="how-it-works" className="py-16 sm:py-20 md:py-24">
             <div className="container">
-                <div className="text-center max-w-3xl mx-auto mb-12">
-                    <h2 className="text-3xl font-bold font-headline">How EduGenius Works</h2>
+                <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+                    <h2 className="text-3xl sm:text-4xl font-bold font-headline">How EduGenius Works</h2>
                     <p className="mt-4 text-lg text-muted-foreground">A simple, powerful flow for everyone in the learning journey.</p>
                 </div>
                 <div className="grid md:grid-cols-3 gap-8 text-center">
@@ -217,9 +217,9 @@ export default function HomePage() {
 
 
         {/* Testimonials Section */}
-        <section className="py-12 md:py-24 bg-secondary/40">
+        <section className="py-16 sm:py-20 md:py-24 bg-secondary/40">
           <div className="container">
-            <h2 className="text-3xl font-bold tracking-tight text-center font-headline mb-12">What Our Early Users Say</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-center font-headline mb-12 md:mb-16">What Our Early Users Say</h2>
             <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               <TestimonialCard
                 quote="I've reclaimed my weekends! The AI lesson planner is a lifesaver. What used to take hours now takes minutes, and the quality is outstanding."
@@ -244,13 +244,13 @@ export default function HomePage() {
         </section>
 
         {/* Plans/Coming Soon Section */}
-        <section className="py-12 md:py-24">
+        <section className="py-16 sm:py-20 md:py-24">
             <div className="container">
-                <div className="text-center max-w-3xl mx-auto mb-12">
-                    <h2 className="text-3xl font-bold font-headline">What's Next for EduGenius</h2>
+                <div className="text-center max-w-3xl mx-auto mb-12 md:mb-16">
+                    <h2 className="text-3xl sm:text-4xl font-bold font-headline">What's Next for EduGenius</h2>
                     <p className="mt-4 text-lg text-muted-foreground">We're constantly innovating. Here's a sneak peek at what's coming soon.</p>
                 </div>
-                <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div className="max-w-7xl mx-auto grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
                     <InfoCard
                         icon={MessagesSquare}
                         title="Real-time Messaging"
@@ -284,9 +284,9 @@ export default function HomePage() {
         </section>
 
         {/* Final CTA Section */}
-        <section className="py-24 bg-secondary/40">
+        <section className="py-16 sm:py-24 bg-secondary/40">
           <div className="container text-center">
-            <h2 className="text-4xl font-bold tracking-tight text-primary font-headline">Ready to Transform Your Learning Experience?</h2>
+            <h2 className="text-3xl sm:text-4xl font-bold tracking-tight text-primary font-headline">Ready to Transform Your Learning Experience?</h2>
             <p className="mt-6 max-w-2xl mx-auto text-lg leading-8 text-foreground/80">
               Join the educational revolution. Sign up today to get early access and discover the future of education.
             </p>
@@ -308,8 +308,8 @@ export default function HomePage() {
 // Helper components for cleaner structure
 
 const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React.ElementType, title: string, description: string, features: string[] }) => (
-    <Card className="h-full flex flex-col text-left p-2 shadow-sm hover:shadow-lg transition-shadow duration-300">
-        <CardHeader className="flex-row items-start gap-4">
+    <Card className="h-full flex flex-col p-2 shadow-sm hover:shadow-lg transition-shadow duration-300">
+        <CardHeader className="flex flex-col items-center text-center gap-4 sm:flex-row sm:items-start sm:text-left">
             <div className="bg-primary/10 text-primary min-w-12 h-12 rounded-lg flex items-center justify-center flex-shrink-0">
                 <Icon className="w-6 h-6" />
             </div>
@@ -319,9 +319,9 @@ const FeatureCard = ({ icon: Icon, title, description, features }: { icon: React
             </div>
         </CardHeader>
         <CardContent className="flex-grow pt-0">
-            <ul className="space-y-2 text-sm text-foreground/80 mt-4">
+            <ul className="space-y-2 text-sm text-foreground/80 mt-4 text-center sm:text-left">
                 {features.map(feature => (
-                    <li key={feature} className="flex items-start">
+                    <li key={feature} className="flex items-start justify-center sm:justify-start">
                         <CheckCircle className="h-4 w-4 mr-2 text-green-500 flex-shrink-0 mt-1" />
                         <span>{feature}</span>
                     </li>
@@ -401,3 +401,6 @@ const CheckCircle = (props: React.SVGProps<SVGSVGElement>) => (
 
 
 
+
+
+    
