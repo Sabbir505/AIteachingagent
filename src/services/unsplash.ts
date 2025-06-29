@@ -1,6 +1,8 @@
 'use server';
 import 'server-only';
 import axios from 'axios';
+import { config } from 'dotenv';
+config();
 
 const UNSPLASH_API_URL = 'https://api.unsplash.com/search/photos';
 
