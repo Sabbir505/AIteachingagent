@@ -58,8 +58,10 @@ export default function DashboardLayout({ children }: { children: ReactNode }) {
             <UserAccountNav user={user} />
           </div>
         </header>
-        <main className="flex-1 p-4 sm:p-6 lg:p-8">
-          {children}
+        <main className="flex-1 py-4 sm:py-6 lg:py-8">
+          <div className="container">
+            {children}
+          </div>
         </main>
       </SidebarInset>
     </SidebarProvider>
