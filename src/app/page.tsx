@@ -1,3 +1,4 @@
+
 import { Button, buttonVariants } from "@/components/ui/button";
 import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -175,7 +176,7 @@ export default function HomePage() {
                       <li className="flex items-start"><Check className="h-5 w-5 mr-2 mt-1 text-primary flex-shrink-0" /><span>Facilitates informed conversations with teachers</span></li>
                     </ul>
                   </div>
-                  <Image src="https://images.unsplash.com/photo-1584697964426-31d4e4db54b6" alt="Supportive parent helping their child with schoolwork on a tablet." width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="parent child" />
+                  <Image src="https://images.unsplash.com/photo-1619537248318-f47514352553" alt="A smiling parent and child looking at a phone together." width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="parent child" />
                 </div>
               </TabsContent>
             </Tabs>
