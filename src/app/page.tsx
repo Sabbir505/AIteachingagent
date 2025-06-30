@@ -145,13 +145,13 @@ export default function HomePage() {
                       <li className="flex items-start"><Check className="h-5 w-5 mr-2 mt-1 text-primary flex-shrink-0" /><span>Easy management of multiple classes and assignments</span></li>
                     </ul>
                   </div>
-                  <Image src="https://images.unsplash.com/photo-1688502283439-509b5443d460" alt="A confident teacher using a laptop in a modern classroom, showcasing efficiency." width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="teacher technology" />
+                  <Image src="https://images.unsplash.com/photo-1688502283439-509b5443d460" alt="A teacher at a desk with headphones, focused on her work on a laptop." width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="teacher technology" />
                 </div>
               </TabsContent>
 
               <TabsContent value="student" className="mt-8">
                 <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
-                   <Image src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" alt="An engaged student smiling while using a tablet for an interactive lesson in a comfortable learning environment." width={600} height={400} className="rounded-xl shadow-lg order-last lg:order-first" data-ai-hint="student learning" />
+                   <Image src="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f" alt="An engaged student smiling while studying with a book and tablet." width={600} height={400} className="rounded-xl shadow-lg order-last lg:order-first" data-ai-hint="student learning" />
                   <div className="space-y-4">
                     <h3 className="text-2xl font-bold font-headline">Your Personalized Learning Path</h3>
                     <p className="text-foreground/70">Experience learning like never before. Access lessons in the format that works best for you, from text and video to interactive modules. Track your progress and get instant feedback.</p>
@@ -175,7 +175,7 @@ export default function HomePage() {
                       <li className="flex items-start"><Check className="h-5 w-5 mr-2 mt-1 text-primary flex-shrink-0" /><span>Facilitates informed conversations with teachers</span></li>
                     </ul>
                   </div>
-                  <Image src="https://images.unsplash.com/photo-1584697964426-31d4e4db54b6" alt="A parent and child looking together at a tablet displaying educational progress, fostering a supportive home learning environment." width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="parent child" />
+                  <Image src="https://images.unsplash.com/photo-1584697964426-31d4e4db54b6" alt="Supportive parent helping their child with schoolwork on a tablet." width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="parent child" />
                 </div>
               </TabsContent>
             </Tabs>
