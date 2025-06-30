@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { Check, BookOpen, Users2, GraduationCap, HeartHandshake, Eye, GitBranch, WandSparkles, UsersRound, ChartColumn } from "lucide-react";
+import { Check, BookOpen, GraduationCap, HeartHandshake, Eye, GitBranch, WandSparkles, UsersRound, ChartColumn } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Icons } from "@/components/icons";
@@ -83,7 +83,7 @@ export default function HomePage() {
           </div>
           <div className="mt-12 lg:mt-16">
              <Image
-              src="/hero-image.png"
+              src="https://sdmntprwestus3.oaiusercontent.com/files/00000000-0704-61fd-afd5-e65c0b488ee2/raw?se=2025-06-30T03%3A25%3A32Z&amp;sp=r&amp;sv=2024-08-04&amp;sr=b&amp;scid=da6ef745-6400-5ce2-8efa-d3c87f44ce9a&amp;skoid=a3412ad4-1a13-47ce-91a5-c07730964f35&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2025-06-29T18%3A10%3A34Z&amp;ske=2025-06-30T18%3A10%3A34Z&amp;sks=b&amp;skv=2024-08-04&amp;sig=voDmFjW4huH8OCK6QV9PaaLs%2BSh%2BOLvDXiW0pnDKBvo%3D"
               alt="A teacher and student collaborating with a futuristic, holographic educational interface."
               width={1200}
               height={600}
@@ -129,7 +129,7 @@ export default function HomePage() {
           <div className="mt-16">
             <Tabs defaultValue="teacher" className="w-full">
               <TabsList className="grid w-full grid-cols-3 max-w-lg mx-auto h-auto">
-                <TabsTrigger value="teacher" className="py-2 flex items-center gap-2"><Users2 /> Teachers</TabsTrigger>
+                <TabsTrigger value="teacher" className="py-2 flex items-center gap-2"><UsersRound /> Teachers</TabsTrigger>
                 <TabsTrigger value="student" className="py-2 flex items-center gap-2"><GraduationCap /> Students</TabsTrigger>
                 <TabsTrigger value="parent" className="py-2 flex items-center gap-2"><HeartHandshake /> Parents</TabsTrigger>
               </TabsList>
@@ -145,7 +145,7 @@ export default function HomePage() {
                       <li className="flex items-start"><Check className="h-5 w-5 mr-2 mt-1 text-primary flex-shrink-0" /><span>Easy management of multiple classes and assignments</span></li>
                     </ul>
                   </div>
-                  <Image src="https://placehold.co/600x400.png" alt="A teacher looking confident and relaxed while using a laptop to manage lesson plans in a modern classroom." width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="teacher classroom technology" />
+                  <Image src="https://placehold.co/600x400.png" alt="A teacher looking confident and relaxed while using a laptop to manage lesson plans in a modern classroom." width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="teacher technology" />
                 </div>
               </TabsContent>
 
@@ -265,7 +265,7 @@ export default function HomePage() {
                 </CardContent>
                  <CardContent>
                      <Button className="w-full" variant="outline">Contact Sales</Button>
-                </CardContent>
+                 </CardContent>
             </Card>
            </div>
         </div>
