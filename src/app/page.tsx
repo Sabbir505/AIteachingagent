@@ -86,7 +86,7 @@ export default function HomePage() {
               src="https://sdmntprwestus3.oaiusercontent.com/files/00000000-0704-61fd-afd5-e65c0b488ee2/raw?se=2025-06-30T03%3A25%3A32Z&amp;sp=r&amp;sv=2024-08-04&amp;sr=b&amp;scid=da6ef745-6400-5ce2-8efa-d3c87f44ce9a&amp;skoid=a3412ad4-1a13-47ce-91a5-c07730964f35&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2025-06-29T18%3A10%3A34Z&amp;ske=2025-06-30T18%3A10%3A34Z&amp;sks=b&amp;skv=2024-08-04&amp;sig=voDmFjW4huH8OCK6QV9PaaLs%2BSh%2BOLvDXiW0pnDKBvo%3D"
               alt="A teacher and student collaborating with a futuristic, holographic educational interface."
               width={1200}
-              height={400}
+              height={300}
               className="rounded-xl shadow-2xl ring-1 ring-border/20"
               priority
             />
@@ -151,7 +151,7 @@ export default function HomePage() {
 
               <TabsContent value="student" className="mt-8">
                 <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-16">
-                   <Image src="https://placehold.co/600x400.png" alt="Student learning with EduGenius" width={600} height={400} className="rounded-xl shadow-lg order-last lg:order-first" data-ai-hint="student learning" />
+                   <Image src="https://placehold.co/600x400.png" alt="An engaged student smiling while using a tablet for an interactive lesson in a comfortable learning environment." width={600} height={400} className="rounded-xl shadow-lg order-last lg:order-first" data-ai-hint="student learning" />
                   <div className="space-y-4">
                     <h3 className="text-2xl font-bold font-headline">Your Personalized Learning Path</h3>
                     <p className="text-foreground/70">Experience learning like never before. Access lessons in the format that works best for you, from text and video to interactive modules. Track your progress and get instant feedback.</p>
@@ -175,7 +175,7 @@ export default function HomePage() {
                       <li className="flex items-start"><Check className="h-5 w-5 mr-2 mt-1 text-primary flex-shrink-0" /><span>Facilitates informed conversations with teachers</span></li>
                     </ul>
                   </div>
-                  <Image src="https://placehold.co/600x400.png" alt="Parent viewing progress on EduGenius" width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="parent child" />
+                  <Image src="https://placehold.co/600x400.png" alt="A parent and child looking together at a tablet displaying educational progress, fostering a supportive home learning environment." width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="parent child" />
                 </div>
               </TabsContent>
             </Tabs>
