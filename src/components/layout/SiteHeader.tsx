@@ -1,4 +1,3 @@
-
 "use client";
 
 import Link from "next/link";
@@ -32,9 +31,9 @@ export default function SiteHeader() {
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container flex h-16 items-center px-4">
+      <div className="container flex h-16 items-center">
         {/* Left: Logo */}
-        <div className="mr-6 flex items-center">
+        <div className="flex flex-1 items-center justify-start">
           <Link href="/" className="flex items-center space-x-2">
             <Icons.logo className="h-6 w-6 text-primary" />
             <span className="hidden font-bold sm:inline-block font-headline">{siteConfig.name}</span>
@@ -42,7 +41,7 @@ export default function SiteHeader() {
         </div>
 
         {/* Middle: Navigation Links */}
-        <nav className="hidden flex-grow items-center justify-center gap-6 text-sm font-medium md:flex">
+        <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
           {navLinks.map(link => (
             <Link
               key={link.href}
