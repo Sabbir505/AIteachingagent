@@ -7,6 +7,7 @@ import { Check, Wand2, Users, BookOpen, BarChart3, Users2, GraduationCap, HeartH
 import Image from "next/image";
 import Link from "next/link";
 import { Icons } from "@/components/icons";
+import * as React from "react";
 
 const features = [
   {
@@ -68,7 +69,7 @@ export default function HomePage() {
     <div className="flex flex-col">
       {/* Hero Section */}
       <section className="py-20 sm:py-24 lg:py-32">
-        <div className="container px-4 text-center">
+        <div className="container text-center">
           <h1 className="text-4xl font-extrabold tracking-tighter sm:text-5xl md:text-6xl lg:text-7xl font-headline">
             The Future of <span className="text-primary">Learning</span> is Here
           </h1>
@@ -76,17 +77,14 @@ export default function HomePage() {
             EduGenius is an AI-powered, multimodal learning platform designed to empower teachers, engage students, and inform parents.
           </p>
           <div className="mt-8 flex justify-center gap-4">
-            <Link href="/signup" className={cn(buttonVariants({ size: "lg" }))}>
-              Get Started Free
-            </Link>
-            <Link href="#features" className={cn(buttonVariants({ variant: "outline", size: "lg" }))}>
-              Learn More
+            <Link href="/login" className={cn(buttonVariants({ size: "lg" }))}>
+              Log In
             </Link>
           </div>
           <div className="mt-12 lg:mt-16">
              <Image 
               src="https://placehold.co/1200x600.png"
-              alt="Teacher and student interacting with a futuristic, holographic educational interface."
+              alt="A teacher and student collaborating with a futuristic, holographic educational interface."
               width={1200}
               height={600}
               className="rounded-xl shadow-2xl ring-1 ring-border/20"
@@ -99,7 +97,7 @@ export default function HomePage() {
 
       {/* Features Section */}
       <section id="features" className="py-20 sm:py-24 lg:py-32 bg-secondary/50">
-        <div className="container px-4">
+        <div className="container">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-headline">Everything You Need to Succeed</h2>
             <p className="mt-4 text-lg text-foreground/70">
@@ -108,15 +106,13 @@ export default function HomePage() {
           </div>
           <div className="mt-16 grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {features.map((feature) => (
-              <Card key={feature.title} className="bg-card hover:shadow-lg transition-shadow">
-                <CardHeader className="flex flex-row items-center gap-4">
-                  {feature.icon}
-                  <CardTitle className="font-headline text-xl">{feature.title}</CardTitle>
-                </CardHeader>
-                <CardContent>
-                  <p className="text-foreground/70">{feature.description}</p>
-                </CardContent>
-              </Card>
+              <div key={feature.title} className="relative transform rounded-xl border bg-card p-6 text-left transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl hover:shadow-primary/10">
+                  <div className="flex h-14 w-14 items-center justify-center rounded-full bg-primary/10">
+                      {React.cloneElement(feature.icon, { className: "h-7 w-7 text-primary" })}
+                  </div>
+                  <h3 className="mt-6 text-xl font-bold font-headline">{feature.title}</h3>
+                  <p className="mt-2 text-base text-muted-foreground">{feature.description}</p>
+              </div>
             ))}
           </div>
         </div>
@@ -124,7 +120,7 @@ export default function HomePage() {
 
       {/* How it Works Section */}
       <section id="how-it-works" className="py-20 sm:py-24 lg:py-32">
-        <div className="container px-4">
+        <div className="container">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-headline">A Platform for Everyone</h2>
             <p className="mt-4 text-lg text-foreground/70">
@@ -150,7 +146,7 @@ export default function HomePage() {
                       <li className="flex items-start"><Check className="h-5 w-5 mr-2 mt-1 text-primary flex-shrink-0" /><span>Easy management of multiple classes and assignments</span></li>
                     </ul>
                   </div>
-                  <Image src="https://placehold.co/600x400.png" alt="Teacher using a laptop in a modern classroom" width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="teacher classroom" />
+                  <Image src="https://placehold.co/600x400.png" alt="A teacher in a classroom, looking confident while using a laptop to manage lesson plans." width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="teacher classroom" />
                 </div>
               </TabsContent>
 
@@ -190,7 +186,7 @@ export default function HomePage() {
 
        {/* Testimonials Section */}
       <section id="testimonials" className="py-20 sm:py-24 lg:py-32 bg-secondary/50">
-        <div className="container px-4">
+        <div className="container">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-headline">Loved by Educators and Families</h2>
             <p className="mt-4 text-lg text-foreground/70">
@@ -218,7 +214,7 @@ export default function HomePage() {
 
       {/* Pricing Section (Placeholder) */}
       <section id="pricing" className="py-20 sm:py-24 lg:py-32">
-        <div className="container px-4">
+        <div className="container">
           <div className="mx-auto max-w-2xl text-center">
             <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-headline">Simple, Transparent Pricing</h2>
             <p className="mt-4 text-lg text-foreground/70">
@@ -278,7 +274,7 @@ export default function HomePage() {
 
       {/* Final CTA Section */}
       <section className="py-20 sm:py-24 lg:py-32 bg-primary/10">
-        <div className="container px-4 text-center">
+        <div className="container text-center">
            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl font-headline">Ready to Transform Your Classroom?</h2>
            <p className="mx-auto mt-4 max-w-2xl text-lg text-foreground/80">
             Join thousands of educators, students, and parents who are embracing the future of learning.
@@ -293,7 +289,7 @@ export default function HomePage() {
 
       {/* Footer */}
       <footer className="py-8 bg-secondary/50">
-        <div className="container px-4 flex flex-col md:flex-row justify-between items-center text-sm">
+        <div className="container flex flex-col md:flex-row justify-between items-center text-sm">
           <div className="flex items-center gap-2">
              <Icons.logo className="h-5 w-5 text-primary" />
              <p className="font-semibold">{siteConfig.name}</p>
