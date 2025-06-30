@@ -5,50 +5,50 @@
 
 @layer base {
   :root {
-    /* Professional & Clean Education Theme (Default: Blue) */
-    --background: 210 20% 98%; /* #F8F9FA - Soft Off-White */
-    --foreground: 215 28% 17%; /* #1F2937 - Deep Charcoal */
+    /* EduGenius Theme: Soft Sky Blue, Lavender Accent */
+    --background: 207 67% 95%; /* #EBF4FA - Light desaturated blue */
+    --foreground: 222 47% 11%; /* Dark text for contrast */
     
     --card: 0 0% 100%;
-    --card-foreground: 215 28% 17%;
+    --card-foreground: 222 47% 11%;
     
     --popover: 0 0% 100%;
-    --popover-foreground: 215 28% 17%;
+    --popover-foreground: 222 47% 11%;
     
-    --primary: 220 91% 57%; /* #2C6FF5 - Professional Blue */
-    --primary-foreground: 0 0% 100%;
+    --primary: 197 71% 60%; /* #87CEEB - Soft sky blue (made slightly darker for better contrast) */
+    --primary-foreground: 222 47% 11%; /* Dark text on primary */
     
-    --secondary: 210 40% 96%; /* #F1F5F9 - Light Grey-Blue */
+    --secondary: 207 60% 92%; /* Slightly darker than background */
     --secondary-foreground: 222 47% 11%;
     
-    --muted: 210 40% 96%;
-    --muted-foreground: 215 16% 47%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
     
-    --accent: 210 40% 96%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 277 35% 80%; /* #D0B4DE - Muted lavender */
+    --accent-foreground: 222 47% 11%; /* Dark text on accent */
     
-    --destructive: 0 84% 60%; /* #EF4E4E - Friendly Red */
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
     
-    --border: 214 32% 91%;
-    --input: 214 32% 91%;
-    --ring: 220 91% 57%;
+    --border: 207 50% 88%;
+    --input: 207 50% 88%;
+    --ring: 197 71% 60%;
     
-    --chart-1: 158 64% 49%; /* #30C88F - Highlight Green */
-    --chart-2: 174 80% 40%; /* Teal */
-    --chart-3: 262 83% 58%; /* Violet */
-    --chart-4: 25 95% 53%;  /* Orange */
-    --chart-5: 220 91% 57%; /* Blue */
+    --chart-1: 197 71% 60%; /* Primary */
+    --chart-2: 277 35% 70%; /* Darker Accent */
+    --chart-3: 220 91% 57%;
+    --chart-4: 25 95% 53%;
+    --chart-5: 158 64% 49%;
     --radius: 0.5rem;
 
     /* Sidebar specific colors */
-    --sidebar-background: 210 20% 99%;
-    --sidebar-foreground: 215 28% 17%;
+    --sidebar-background: 207 67% 97%;
+    --sidebar-foreground: 222 47% 11%;
     --sidebar-primary: var(--primary);
     --sidebar-primary-foreground: var(--primary-foreground);
-    --sidebar-accent: 210 40% 94%;
+    --sidebar-accent: 207 60% 92%;
     --sidebar-accent-foreground: 222 47% 11%;
-    --sidebar-border: 214 32% 91%;
+    --sidebar-border: 207 50% 88%;
     --sidebar-ring: var(--ring);
   }
 
@@ -63,7 +63,7 @@
     --popover: 222 47% 14%;
     --popover-foreground: 210 40% 98%;
     
-    --primary: 217 91% 60%; /* Lighter blue for dark mode */
+    --primary: 197 71% 73%; /* #87CEEB - Lighter for dark mode */
     --primary-foreground: 222 47% 11%;
     
     --secondary: 217 33% 17%;
@@ -72,15 +72,15 @@
     --muted: 217 33% 17%;
     --muted-foreground: 215 20% 65%;
     
-    --accent: 217 33% 22%;
+    --accent: 277 45% 75%; /* Lighter Lavender */
     --accent-foreground: 210 40% 98%;
     
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 85.7% 97.3%;
     
     --border: 217 33% 27%;
     --input: 217 33% 27%;
-    --ring: 217 91% 60%;
+    --ring: 197 71% 73%;
 
     /* Dark Sidebar specific colors */
     --sidebar-background: 222 47% 12%;
@@ -91,40 +91,6 @@
     --sidebar-accent-foreground: 210 40% 98%;
     --sidebar-border: 217 33% 27%;
     --sidebar-ring: var(--ring);
-  }
-
-  /* Role-based overrides */
-  .role-teacher {
-    --primary: 262 70% 55%; /* #7C3AED - Violet */
-    --primary-foreground: 0 0% 100%;
-    --ring: 262 70% 55%;
-  }
-  .dark .role-teacher {
-     --primary: 262 80% 68%;
-     --primary-foreground: 0 0% 100%;
-     --ring: 262 80% 68%;
-  }
-
-  .role-student {
-    --primary: 172 69% 40%; /* #14B8A6 - Teal */
-    --primary-foreground: 0 0% 100%;
-    --ring: 172 69% 40%;
-  }
-  .dark .role-student {
-    --primary: 172 75% 55%;
-    --primary-foreground: 0 0% 0%;
-    --ring: 172 75% 55%;
-  }
-  
-  .role-parent {
-    --primary: 25 95% 53%; /* #F97316 - Orange */
-    --primary-foreground: 0 0% 100%;
-    --ring: 25 95% 53%;
-  }
-  .dark .role-parent {
-    --primary: 25 95% 63%;
-    --primary-foreground: 0 0% 0%;
-    --ring: 25 95% 63%;
   }
 }
 
