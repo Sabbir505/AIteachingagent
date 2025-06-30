@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { Check, Wand2, Users, BookOpen, BarChart3, Users2, GraduationCap, HeartHandshake, Eye, GitBranch } from "lucide-react";
+import { Check, BookOpen, Users2, GraduationCap, HeartHandshake, Eye, GitBranch, WandSparkles, UsersRound, ChartColumn } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Icons } from "@/components/icons";
@@ -11,32 +11,32 @@ import * as React from "react";
 
 const features = [
   {
-    icon: <Wand2 className="h-8 w-8 text-accent" />,
+    icon: <WandSparkles />,
     title: "AI Lesson Generation",
     description: "Create comprehensive lesson plans, quizzes, and presentation outlines in minutes.",
   },
   {
-    icon: <Users className="h-8 w-8 text-accent" />,
+    icon: <UsersRound />,
     title: "Role-Based Dashboards",
     description: "Personalized experiences for Teachers, Students, and Parents to manage their unique tasks.",
   },
   {
-    icon: <BookOpen className="h-8 w-8 text-accent" />,
+    icon: <BookOpen />,
     title: "Multimodal Content",
     description: "Engage students with diverse content including text, video, interactive elements, and more.",
   },
   {
-    icon: <BarChart3 className="h-8 w-8 text-accent" />,
+    icon: <ChartColumn />,
     title: "Auto-Grading & Analytics",
     description: "Save time with automated grading for multiple-choice questions and gain insights into student performance.",
   },
   {
-    icon: <Eye className="h-8 w-8 text-accent" />,
+    icon: <Eye />,
     title: "Accessibility First",
     description: "Includes text-to-speech, high-contrast, and dyslexia-friendly fonts for inclusive learning.",
   },
   {
-    icon: <GitBranch className="h-8 w-8 text-accent" />,
+    icon: <GitBranch />,
     title: "Flexible & Customizable",
     description: "Adapt and edit AI-generated content to perfectly fit your curriculum and teaching style.",
   },
@@ -145,7 +145,7 @@ export default function HomePage() {
                       <li className="flex items-start"><Check className="h-5 w-5 mr-2 mt-1 text-primary flex-shrink-0" /><span>Easy management of multiple classes and assignments</span></li>
                     </ul>
                   </div>
-                  <Image src="https://placehold.co/600x400.png" alt="A teacher in a classroom, looking confident while using a laptop to manage lesson plans." width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="teacher classroom" />
+                  <Image src="https://placehold.co/600x400.png" alt="A teacher looking confident and relaxed while using a laptop to manage lesson plans in a modern classroom." width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="teacher classroom technology" />
                 </div>
               </TabsContent>
 
