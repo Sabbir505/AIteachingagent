@@ -4,7 +4,6 @@ import './globals.css';
 import { cn } from '@/lib/utils';
 import { Toaster } from '@/components/ui/toaster';
 import { AuthProvider } from '@/contexts/AuthContext';
-import SiteHeader from '@/components/layout/SiteHeader';
 import { ThemeProvider } from '@/components/ThemeProvider';
 import { PT_Sans } from 'next/font/google';
 
@@ -40,7 +39,6 @@ export default function RootLayout({
         >
           <AuthProvider>
             <div className="relative flex min-h-screen flex-col">
-              <SiteHeader />
               <main className="flex-1">{children}</main>
             </div>
             <Toaster />
