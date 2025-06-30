@@ -82,14 +82,13 @@ export default function HomePage() {
             </Link>
           </div>
           <div className="mt-12 lg:mt-16">
-             <Image 
-              src="https://placehold.co/1200x600.png"
+             <Image
+              src="/hero-image.png"
               alt="A teacher and student collaborating with a futuristic, holographic educational interface."
               width={1200}
               height={600}
               className="rounded-xl shadow-2xl ring-1 ring-border/20"
               priority
-              data-ai-hint="futuristic classroom"
             />
           </div>
         </div>
