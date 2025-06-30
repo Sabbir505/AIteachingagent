@@ -3,7 +3,7 @@ import { Card, CardHeader, CardTitle, CardDescription, CardContent } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils";
-import { Check, Wand2, Users, BookOpen, MonitorPlay, BarChart3, Users2, GraduationCap, HeartHandshake, Eye, Type, GitBranch } from "lucide-react";
+import { Check, Wand2, Users, BookOpen, BarChart3, Users2, GraduationCap, HeartHandshake, Eye, GitBranch } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import { Icons } from "@/components/icons";
@@ -77,7 +77,7 @@ export default function HomePage() {
           </p>
           <div className="mt-8 flex justify-center gap-4">
             <Link href="/signup" className={cn(buttonVariants({ size: "lg" }))}>
-              Try EduGenius Free
+              Get Started Free
             </Link>
             <Link href="#features" className={cn(buttonVariants({ variant: "outline", size: "lg" }))}>
               Learn More
@@ -86,7 +86,7 @@ export default function HomePage() {
           <div className="mt-12 lg:mt-16">
              <Image 
               src="https://placehold.co/1200x600.png"
-              alt="EduGenius Dashboard Preview"
+              alt="A teacher and student collaborating with a futuristic tablet"
               width={1200}
               height={600}
               className="rounded-xl shadow-2xl ring-1 ring-border/20"
@@ -150,7 +150,7 @@ export default function HomePage() {
                       <li className="flex items-start"><Check className="h-5 w-5 mr-2 mt-1 text-primary flex-shrink-0" /><span>Easy management of multiple classes and assignments</span></li>
                     </ul>
                   </div>
-                  <Image src="https://placehold.co/600x400.png" alt="Teacher using EduGenius" width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="teacher classroom" />
+                  <Image src="https://placehold.co/600x400.png" alt="Teacher using EduGenius on a laptop in a modern classroom" width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="teacher technology" />
                 </div>
               </TabsContent>
 
