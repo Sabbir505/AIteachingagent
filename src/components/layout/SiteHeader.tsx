@@ -33,7 +33,7 @@ export default function SiteHeader() {
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
       <div className="container flex h-16 items-center">
         {/* Left: Logo */}
-        <div className="flex flex-1 items-center justify-start">
+        <div className="flex-1 md:flex-grow-0">
           <Link href="/" className="flex items-center space-x-2">
             <Icons.logo className="h-6 w-6 text-primary" />
             <span className="hidden font-bold sm:inline-block font-headline">{siteConfig.name}</span>
@@ -41,7 +41,7 @@ export default function SiteHeader() {
         </div>
 
         {/* Middle: Navigation Links */}
-        <nav className="hidden items-center gap-6 text-sm font-medium md:flex">
+        <nav className="hidden items-center justify-center gap-6 text-sm font-medium flex-1 md:flex">
           {navLinks.map(link => (
             <Link
               key={link.href}
@@ -54,27 +54,19 @@ export default function SiteHeader() {
         </nav>
 
         {/* Right: Actions */}
-        <div className="flex flex-1 items-center justify-end gap-2">
+        <div className="flex flex-1 items-center justify-end gap-2 md:flex-grow-0">
            <ThemeToggle />
             {user ? (
               <UserAccountNav user={user} />
             ) : (
               <div className="hidden items-center gap-2 md:flex">
-                <Link
-                  href="/login"
-                  className={cn(
-                    buttonVariants({ variant: "ghost", size: "sm" }),
-                  )}
-                >
-                  Log In
-                </Link>
                  <Link
-                  href="/signup"
+                  href="/login"
                   className={cn(
                     buttonVariants({ size: "sm" }),
                   )}
                 >
-                  Try EduGenius Free
+                  Log In
                 </Link>
               </div>
             )}
@@ -106,8 +98,7 @@ export default function SiteHeader() {
              <div className="flex w-full flex-col gap-2 pt-4 border-t">
                 {user ? null : (
                     <>
-                    <Link href="/login" className={cn(buttonVariants({ variant: "outline", size: "sm" }), "w-full")} onClick={() => setMobileMenuOpen(false)}>Log In</Link>
-                    <Link href="/signup" className={cn(buttonVariants({ size: "sm" }), "w-full")} onClick={() => setMobileMenuOpen(false)}>Try EduGenius Free</Link>
+                    <Link href="/login" className={cn(buttonVariants({ size: "sm" }), "w-full")} onClick={() => setMobileMenuOpen(false)}>Log In</Link>
                     </>
                 )}
              </div>
