@@ -86,12 +86,12 @@ export default function HomePage() {
           <div className="mt-12 lg:mt-16">
              <Image 
               src="https://placehold.co/1200x600.png"
-              alt="A teacher and student collaborating with a futuristic tablet"
+              alt="Teacher and student interacting with a futuristic, holographic educational interface."
               width={1200}
               height={600}
               className="rounded-xl shadow-2xl ring-1 ring-border/20"
               priority
-              data-ai-hint="education technology"
+              data-ai-hint="futuristic classroom"
             />
           </div>
         </div>
@@ -150,7 +150,7 @@ export default function HomePage() {
                       <li className="flex items-start"><Check className="h-5 w-5 mr-2 mt-1 text-primary flex-shrink-0" /><span>Easy management of multiple classes and assignments</span></li>
                     </ul>
                   </div>
-                  <Image src="https://placehold.co/600x400.png" alt="Teacher using EduGenius on a laptop in a modern classroom" width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="teacher technology" />
+                  <Image src="https://placehold.co/600x400.png" alt="Teacher using a laptop in a modern classroom" width={600} height={400} className="rounded-xl shadow-lg" data-ai-hint="teacher classroom" />
                 </div>
               </TabsContent>
 
