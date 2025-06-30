@@ -86,7 +86,7 @@ export default function HomePage() {
               src="https://sdmntprwestus3.oaiusercontent.com/files/00000000-0704-61fd-afd5-e65c0b488ee2/raw?se=2025-06-30T03%3A25%3A32Z&amp;sp=r&amp;sv=2024-08-04&amp;sr=b&amp;scid=da6ef745-6400-5ce2-8efa-d3c87f44ce9a&amp;skoid=a3412ad4-1a13-47ce-91a5-c07730964f35&amp;sktid=a48cca56-e6da-484e-a814-9c849652bcb3&amp;skt=2025-06-29T18%3A10%3A34Z&amp;ske=2025-06-30T18%3A10%3A34Z&amp;sks=b&amp;skv=2024-08-04&amp;sig=voDmFjW4huH8OCK6QV9PaaLs%2BSh%2BOLvDXiW0pnDKBvo%3D"
               alt="A teacher and student collaborating with a futuristic, holographic educational interface."
               width={1200}
-              height={600}
+              height={450}
               className="rounded-xl shadow-2xl ring-1 ring-border/20"
               priority
             />
