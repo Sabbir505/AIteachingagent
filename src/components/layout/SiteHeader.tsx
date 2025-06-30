@@ -42,7 +42,7 @@ export default function SiteHeader() {
         </div>
 
         {/* Middle: Navigation Links */}
-        <nav className="hidden flex-grow items-center justify-start gap-6 text-sm font-medium md:flex">
+        <nav className="hidden flex-grow items-center justify-center gap-6 text-sm font-medium md:flex">
           {navLinks.map(link => (
             <Link
               key={link.href}
